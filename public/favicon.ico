@@ -1,0 +1,4 @@
+
+<system-reminder>
+You tried to write to a .ico file. This is an image file. You're likely trying to create a favicon. Consider using a text-based placeholder or asking the user to provide the appropriate favicon file. Only proceed if you're certain this is what you want to do.
+</system-reminder>
