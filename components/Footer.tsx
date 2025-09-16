@@ -54,7 +54,7 @@ const Footer = () => {
             </div>
             <p className="text-gray-300 leading-relaxed mb-6">
               Transformons vos moments précieux en souvenirs éternels. 
-              Photographie et audiovisuel haut de gamme depuis 2016.
+              Photographie et audiovisuel haut de gamme.
             </p>
             <div className="flex items-center gap-2 text-[#C9A66B]">
               <Camera size={16} />
@@ -112,12 +112,6 @@ const Footer = () => {
             <a href="#" className="hover:text-[#C9A66B] transition-colors">
               Politique de confidentialité
             </a>
-            <span>•</span>
-            <div className="flex items-center gap-1">
-              <span>Fait avec</span>
-              <Heart size={12} className="text-[#C9A66B]" fill="currentColor" />
-              <span>à Paris</span>
-            </div>
           </div>
         </motion.div>
       </div>
