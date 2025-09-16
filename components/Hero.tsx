@@ -41,7 +41,7 @@ const Hero = () => {
           transition={{ duration: 1, delay: 0.2 }}
           className="mb-6"
         >
-          <h2 className="text-lg font-medium text-[#C9A66B] tracking-wide uppercase mb-4">
+          <h2 className="text-lg font-medium text-[#C9A66B] mt-20 tracking-wide uppercase mb-4">
             Photographie & Audiovisuel
           </h2>
         </motion.div>
