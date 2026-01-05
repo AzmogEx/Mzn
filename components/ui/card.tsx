@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { motion } from "framer-motion";
+import { motion, HTMLMotionProps } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 export type GlowColor = "corporate" | "emotion" | "rose" | "none";
@@ -42,12 +42,17 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
 Card.displayName = "Card";
 
 // Motion Card with Framer Motion
-interface MotionCardProps extends CardProps {
+interface MotionCardProps {
+  glowColor?: GlowColor;
+  interactive?: boolean;
+  crosshairs?: boolean;
   delay?: number;
+  className?: string;
+  children?: React.ReactNode;
 }
 
 const MotionCard = React.forwardRef<HTMLDivElement, MotionCardProps>(
-  ({ className, glowColor = "none", interactive = false, crosshairs = true, delay = 0, children, ...props }, ref) => {
+  ({ className, glowColor = "none", interactive = false, crosshairs = true, delay = 0, children }, ref) => {
     return (
       <motion.div
         ref={ref}
@@ -63,7 +68,6 @@ const MotionCard = React.forwardRef<HTMLDivElement, MotionCardProps>(
           glowStyles[glowColor],
           className
         )}
-        {...props}
       >
         {children}
       </motion.div>
