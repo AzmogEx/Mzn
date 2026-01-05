@@ -1,0 +1,344 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   MÉMOIRE IMAGE & SONS - Design System
+   Deep Space Dark Mode Theme
+   ============================================ */
+
+@layer base {
+  :root {
+    /* Background Colors */
+    --background: 220 15% 7%;
+    --background-secondary: 220 15% 10%;
+    
+    /* Surface/Cards */
+    --surface: 0 0% 0% / 0.6;
+    --surface-border: 0 0% 100% / 0.1;
+    
+    /* Accent - Corporate (Blue) */
+    --corporate: 217 91% 60%;
+    --corporate-light: 217 91% 68%;
+    --corporate-dark: 217 91% 53%;
+    
+    /* Accent - Emotion (Violet) */
+    --emotion: 258 90% 66%;
+    --emotion-light: 258 90% 72%;
+    --emotion-dark: 263 70% 50%;
+    --emotion-rose: 330 81% 60%;
+    
+    /* Text */
+    --text-primary: 0 0% 100%;
+    --text-secondary: 220 13% 91%;
+    --text-muted: 220 9% 65%;
+    
+    /* Utility */
+    --rec: 0 84% 60%;
+    --success: 160 84% 40%;
+    
+    /* Radii */
+    --radius: 0.75rem;
+  }
+
+  * {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-text-secondary antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Selection */
+  ::selection {
+    @apply bg-emotion/30 text-white;
+  }
+}
+
+@layer components {
+  /* ============================================
+     GLASSMORPHISM UTILITIES
+     ============================================ */
+  .glass {
+    @apply bg-black/60 backdrop-blur-xl border border-white/10 shadow-glass;
+  }
+
+  .glass-light {
+    @apply bg-black/40 backdrop-blur-lg border border-white/5;
+  }
+
+  .glass-hover {
+    @apply transition-all duration-300 hover:bg-black/70 hover:border-white/20;
+  }
+
+  /* ============================================
+     GLOW EFFECTS
+     ============================================ */
+  .glow-corporate {
+    @apply shadow-glow-corporate;
+  }
+
+  .glow-emotion {
+    @apply shadow-glow-emotion;
+  }
+
+  .glow-rose {
+    @apply shadow-glow-rose;
+  }
+
+  .hover-glow-corporate {
+    @apply transition-shadow duration-500 hover:shadow-glow-corporate;
+  }
+
+  .hover-glow-emotion {
+    @apply transition-shadow duration-500 hover:shadow-glow-emotion;
+  }
+
+  .hover-glow-rose {
+    @apply transition-shadow duration-500 hover:shadow-glow-rose;
+  }
+
+  /* ============================================
+     TECHNICAL DECORATIONS
+     ============================================ */
+  .crosshair {
+    @apply relative;
+  }
+
+  .crosshair::before,
+  .crosshair::after {
+    content: "+";
+    @apply absolute text-white/20 text-xs font-light;
+  }
+
+  .crosshair::before {
+    @apply top-2 left-2;
+  }
+
+  .crosshair::after {
+    @apply bottom-2 right-2;
+  }
+
+  .crosshair-full::before {
+    @apply top-2 left-2;
+  }
+
+  .crosshair-full::after {
+    @apply bottom-2 right-2;
+  }
+
+  /* Technical Grid Lines */
+  .tech-grid {
+    background-image: 
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+
+  /* Blueprint Lines */
+  .blueprint-line {
+    @apply relative;
+  }
+
+  .blueprint-line::before {
+    content: "";
+    @apply absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent;
+  }
+
+  /* REC Indicator */
+  .rec-indicator {
+    @apply relative;
+  }
+
+  .rec-indicator::before {
+    content: "● REC";
+    @apply absolute top-3 right-3 text-rec text-xs font-mono tracking-wider animate-pulse;
+  }
+
+  /* ============================================
+     TYPOGRAPHY
+     ============================================ */
+  .heading-xl {
+    @apply font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight tracking-tight;
+  }
+
+  .heading-lg {
+    @apply font-heading text-3xl md:text-4xl font-bold text-white leading-tight;
+  }
+
+  .heading-md {
+    @apply font-heading text-2xl md:text-3xl font-semibold text-white;
+  }
+
+  .heading-sm {
+    @apply font-heading text-xl md:text-2xl font-semibold text-white;
+  }
+
+  .body-lg {
+    @apply font-body text-lg text-text-secondary leading-relaxed;
+  }
+
+  .body-md {
+    @apply font-body text-base text-text-secondary leading-relaxed;
+  }
+
+  .body-sm {
+    @apply font-body text-sm text-text-muted;
+  }
+
+  /* ============================================
+     BUTTONS
+     ============================================ */
+  .btn-base {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-body font-medium text-sm transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-corporate {
+    @apply btn-base bg-gradient-corporate text-white hover:shadow-glow-corporate hover:scale-105 active:scale-95;
+  }
+
+  .btn-emotion {
+    @apply btn-base bg-gradient-emotion text-white hover:shadow-glow-emotion hover:scale-105 active:scale-95;
+  }
+
+  .btn-outline {
+    @apply btn-base bg-transparent border border-white/20 text-white hover:bg-white/10 hover:border-white/30;
+  }
+
+  .btn-ghost {
+    @apply btn-base bg-transparent text-white/80 hover:text-white hover:bg-white/5;
+  }
+
+  /* ============================================
+     FORM ELEMENTS
+     ============================================ */
+  .input-base {
+    @apply w-full px-4 py-3 rounded-lg bg-black/40 border border-white/10 text-white placeholder:text-white/40 font-body text-sm transition-all duration-300 focus:outline-none focus:border-emotion/50 focus:ring-2 focus:ring-emotion/20;
+  }
+
+  .input-corporate {
+    @apply input-base focus:border-corporate/50 focus:ring-corporate/20;
+  }
+
+  .label-base {
+    @apply block text-sm font-medium text-white mb-2;
+  }
+
+  /* ============================================
+     CARDS
+     ============================================ */
+  .card-base {
+    @apply glass rounded-2xl p-6 crosshair transition-all duration-500;
+  }
+
+  .card-interactive {
+    @apply card-base cursor-pointer hover:scale-[1.02] hover:border-white/20;
+  }
+
+  /* ============================================
+     ACCESSIBILITY (RGAA)
+     ============================================ */
+  .focus-visible-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emotion focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+  }
+
+  /* High contrast for seniors */
+  .high-contrast {
+    @apply text-white font-medium;
+  }
+
+  /* Skip link for screen readers */
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-emotion focus:text-white focus:rounded-lg;
+  }
+
+  /* ============================================
+     ANIMATIONS
+     ============================================ */
+  .animate-in {
+    animation: animateIn 0.5s ease-out forwards;
+  }
+
+  @keyframes animateIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Staggered animation delays */
+  .delay-100 { animation-delay: 100ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-300 { animation-delay: 300ms; }
+  .delay-400 { animation-delay: 400ms; }
+  .delay-500 { animation-delay: 500ms; }
+
+  /* ============================================
+     MARQUEE
+     ============================================ */
+  .marquee-container {
+    @apply overflow-hidden relative;
+  }
+
+  .marquee-content {
+    @apply flex gap-12 animate-marquee;
+  }
+
+  /* ============================================
+     SCROLLBAR
+     ============================================ */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-background;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-white/10 rounded-full hover:bg-white/20 transition-colors;
+  }
+}
+
+@layer utilities {
+  /* Text Gradient */
+  .text-gradient-corporate {
+    @apply bg-gradient-corporate bg-clip-text text-transparent;
+  }
+
+  .text-gradient-emotion {
+    @apply bg-gradient-emotion bg-clip-text text-transparent;
+  }
+
+  .text-gradient-mixed {
+    @apply bg-gradient-mixed bg-clip-text text-transparent;
+  }
+
+  /* Aspect Ratios */
+  .aspect-video-vertical {
+    aspect-ratio: 9/16;
+  }
+
+  .aspect-cinema {
+    aspect-ratio: 21/9;
+  }
+
+  /* Safe area padding for mobile */
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+}
