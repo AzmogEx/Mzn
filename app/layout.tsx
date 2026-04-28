@@ -16,6 +16,7 @@ const syne = Syne({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://mis-prod.fr"),
   title: {
     default: "Mémoire Image & Sons | Production Vidéo Professionnelle",
     template: "%s | Mémoire Image & Sons",
@@ -40,7 +41,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "fr_FR",
-    url: "https://memoire-is.fr",
+    url: "https://mis-prod.fr",
     siteName: "Mémoire Image & Sons",
     title: "Mémoire Image & Sons | Production Vidéo Professionnelle",
     description:
