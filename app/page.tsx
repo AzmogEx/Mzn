@@ -489,7 +489,7 @@ export default function Home() {
           <div className="grid lg:grid-cols-12 gap-12 items-start">
             <div className="lg:col-span-7">
               <RevealText
-                text={"L'art de capturer\nl'émotion."}
+                text="L'art de capturer l'émotion."
                 as="h2"
                 splitBy="word"
                 stagger={0.07}
