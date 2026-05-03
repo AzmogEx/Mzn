@@ -568,8 +568,9 @@ export default function Home() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
-                      className="group bg-white hover:bg-[#0A0A0A] p-6 md:p-7 transition-colors duration-500"
+                      className="group relative bg-white p-6 md:p-7 transition-all duration-500"
                     >
+                      <span className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#C9A66B]/40 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center" />
                       <div className="flex items-start gap-4">
                         <div className="w-12 h-12 rounded-2xl bg-[#FAFAFA] group-hover:bg-[#C9A66B] flex items-center justify-center flex-shrink-0 transition-all duration-500">
                           <Icon
@@ -578,10 +579,10 @@ export default function Home() {
                           />
                         </div>
                         <div>
-                          <h4 className="font-display font-semibold text-lg mb-1.5 group-hover:text-white transition-colors duration-500">
+                          <h4 className="font-display font-semibold text-lg mb-1.5 text-[#0A0A0A] group-hover:text-[#C9A66B] transition-colors duration-500">
                             {item.title}
                           </h4>
-                          <p className="text-sm text-[#666] leading-relaxed group-hover:text-white/70 transition-colors duration-500">
+                          <p className="text-sm text-[#666] leading-relaxed">
                             {item.description}
                           </p>
                         </div>
