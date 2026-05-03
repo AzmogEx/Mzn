@@ -1,8 +1,22 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npm install *)",
-      "Bash(npm ci *)"
+      "Bash(git checkout *)",
+      "Bash(npm run *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(git branch *)",
+      "Bash(git restore *)",
+      "Bash(echo \"PID: $!\")",
+      "Read(//tmp/**)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3001/)",
+      "Read(//private/tmp/**)",
+      "Bash(curl -s http://localhost:3001/_next/static/css/app/layout.css)",
+      "Bash(curl -sI http://localhost:3001/)",
+      "Bash(curl -s http://localhost:3001/)",
+      "Bash(ps -p 34207 -o pid,command)",
+      "Bash(kill 34207)"
     ]
   }
 }

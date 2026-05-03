@@ -18,6 +18,7 @@ import MagneticButton from "@/components/premium/MagneticButton";
 import GradientOrbs from "@/components/premium/GradientOrbs";
 import Marquee from "@/components/premium/Marquee";
 import TiltCard from "@/components/premium/TiltCard";
+import CameraExploded from "@/components/premium/CameraExploded";
 
 const universes = [
   {
@@ -473,6 +474,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* CAMERA EXPLODED — scroll-driven scene */}
+      <CameraExploded />
 
       {/* MANIFESTE / À propos rapide */}
       <section className="relative py-32 bg-[#FAFAFA] overflow-hidden">
