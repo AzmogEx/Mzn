@@ -1,6 +1,7 @@
 'use client';
 
 import { motion, Variants } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 
 interface RevealTextProps {
@@ -29,6 +30,32 @@ const RevealText = ({
   goldWords = [],
 }: RevealTextProps) => {
   const Tag = as as any;
+  const ref = useRef<HTMLElement | null>(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+    if (typeof IntersectionObserver === 'undefined') {
+      setInView(true);
+      return;
+    }
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setInView(true);
+            if (once) obs.disconnect();
+          } else if (!once) {
+            setInView(false);
+          }
+        });
+      },
+      { rootMargin: '0px 0px -10% 0px', threshold: 0.01 }
+    );
+    obs.observe(node);
+    return () => obs.disconnect();
+  }, [once]);
 
   const segments =
     splitBy === 'char'
@@ -48,11 +75,10 @@ const RevealText = ({
   };
 
   const child: Variants = {
-    hidden: { y: '110%', opacity: 0, rotateX: -45 },
+    hidden: { y: '110%', opacity: 0 },
     visible: {
       y: '0%',
       opacity: 1,
-      rotateX: 0,
       transition: {
         duration,
         ease: [0.22, 1, 0.36, 1],
@@ -61,12 +87,11 @@ const RevealText = ({
   };
 
   return (
-    <Tag className={cn(className)} style={{ perspective: 600 }}>
+    <Tag ref={ref as any} className={cn(className)}>
       <motion.span
         variants={container}
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once, amount: 0.3 }}
+        animate={inView ? 'visible' : 'hidden'}
         className="inline-block"
       >
         {segments.map((seg, i) => {
@@ -75,14 +100,8 @@ const RevealText = ({
           return (
             <span
               key={i}
-              className="inline-block align-baseline"
-              style={{
-                overflow: 'hidden',
-                paddingTop: '0.18em',
-                paddingBottom: '0.22em',
-                marginTop: '-0.18em',
-                marginBottom: '-0.22em',
-              }}
+              className="inline-block overflow-hidden align-top"
+              style={{ paddingBottom: '0.15em' }}
             >
               <motion.span
                 variants={child}
@@ -93,7 +112,7 @@ const RevealText = ({
                 )}
               >
                 {seg}
-                {splitBy === 'word' && i < segments.length - 1 && ' '}
+                {splitBy === 'word' && i < segments.length - 1 && ' '}
               </motion.span>
             </span>
           );
