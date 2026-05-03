@@ -493,7 +493,7 @@ export default function Home() {
                 as="h2"
                 splitBy="word"
                 stagger={0.07}
-                className="text-5xl md:text-7xl lg:text-8xl font-display font-bold leading-[0.95] tracking-tight mb-10"
+                className="text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-[1.02] tracking-tight mb-10"
                 goldWords={["capturer"]}
                 italicWords={["l'émotion."]}
               />
@@ -519,7 +519,7 @@ export default function Home() {
                 </div>
 
                 <div className="md:col-span-9 space-y-5 text-base md:text-lg text-[#3a3a3a] leading-relaxed">
-                  <p className="first-letter:text-5xl first-letter:font-display first-letter:font-bold first-letter:text-[#C9A66B] first-letter:float-left first-letter:mr-3 first-letter:leading-none first-letter:mt-1">
+                  <p className="first-letter:text-[2.6em] first-letter:font-display first-letter:font-bold first-letter:text-[#C9A66B] first-letter:float-left first-letter:mr-2 first-letter:mt-[0.05em] first-letter:leading-[0.85]">
                     Mémoire Image &amp; Sons est un studio indépendant qui mêle rigueur technique
                     et sensibilité artistique. Plus de 8 ans d'expérience à transformer chaque
                     instant en œuvre durable.
