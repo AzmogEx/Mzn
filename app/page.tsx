@@ -568,8 +568,7 @@ export default function Home() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
-                      whileHover={{ backgroundColor: "#0A0A0A" }}
-                      className="group bg-white p-6 md:p-7 transition-colors duration-500"
+                      className="group bg-white hover:bg-[#0A0A0A] p-6 md:p-7 transition-colors duration-500"
                     >
                       <div className="flex items-start gap-4">
                         <div className="w-12 h-12 rounded-2xl bg-[#FAFAFA] group-hover:bg-[#C9A66B] flex items-center justify-center flex-shrink-0 transition-all duration-500">
