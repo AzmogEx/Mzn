@@ -16,7 +16,9 @@
       "Bash(curl -sI http://localhost:3001/)",
       "Bash(curl -s http://localhost:3001/)",
       "Bash(ps -p 34207 -o pid,command)",
-      "Bash(kill 34207)"
+      "Bash(kill 34207)",
+      "Bash(cp \"/Users/azmog/Downloads/Gemini_Generated_Image_2v0qe32v0qe32v0q.png\" /Users/azmog/Desktop/Mzn/public/assets/camera-assembled.png)",
+      "Bash(cp \"/Users/azmog/Downloads/Gemini_Generated_Image_g3sss6g3sss6g3ss.png\" /Users/azmog/Desktop/Mzn/public/assets/camera-exploded.png)"
     ]
   }
 }
