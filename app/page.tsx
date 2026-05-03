@@ -86,8 +86,8 @@ export default function Home() {
 
   const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
   const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
-  const titleY = useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]);
-  const titleOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  const titleY = useTransform(scrollYProgress, [0, 1], ["0%", "-12%"]);
+  const titleOpacity = useTransform(scrollYProgress, [0.75, 1], [1, 0.15]);
 
   if (!mounted) return null;
 
