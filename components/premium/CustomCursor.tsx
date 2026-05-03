@@ -11,11 +11,8 @@ const CustomCursor = () => {
   const mouseX = useMotionValue(-100);
   const mouseY = useMotionValue(-100);
 
-  const dotX = useSpring(mouseX, { stiffness: 900, damping: 40, mass: 0.2 });
-  const dotY = useSpring(mouseY, { stiffness: 900, damping: 40, mass: 0.2 });
-
-  const ringX = useSpring(mouseX, { stiffness: 180, damping: 22, mass: 0.6 });
-  const ringY = useSpring(mouseY, { stiffness: 180, damping: 22, mass: 0.6 });
+  const x = useSpring(mouseX, { stiffness: 500, damping: 32, mass: 0.3 });
+  const y = useSpring(mouseY, { stiffness: 500, damping: 32, mass: 0.3 });
 
   useEffect(() => {
     const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
@@ -56,44 +53,36 @@ const CustomCursor = () => {
 
   if (!isPointer) return null;
 
-  const ringScale = variant === 'hover' ? 1.7 : variant === 'image' ? 2.6 : variant === 'text' ? 0.4 : 1;
-  const dotScale = variant === 'hover' ? 0 : variant === 'image' ? 0 : variant === 'text' ? 1.6 : 1;
+  const ringScale = variant === 'hover' ? 1.7 : variant === 'image' ? 2.6 : variant === 'text' ? 0.5 : 1;
+  const dotScale = variant === 'hover' ? 0 : variant === 'image' ? 0 : variant === 'text' ? 1.4 : 1;
 
   return (
-    <>
+    <motion.div
+      className="pointer-events-none fixed top-0 left-0 z-[9999]"
+      style={{ x, y, opacity: visible ? 1 : 0 }}
+    >
       <motion.div
-        className="pointer-events-none fixed top-0 left-0 z-[9999] mix-blend-difference"
-        style={{ x: dotX, y: dotY, opacity: visible ? 1 : 0 }}
+        animate={{ scale: ringScale }}
+        transition={{ type: 'spring', stiffness: 260, damping: 24 }}
+        className="relative -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full border flex items-center justify-center"
+        style={{
+          borderColor: variant === 'default' ? 'rgba(10,10,10,0.25)' : '#C9A66B',
+          background: variant === 'image' ? 'rgba(201,166,107,0.2)' : 'transparent',
+          backdropFilter: variant === 'image' ? 'blur(2px)' : 'none',
+        }}
       >
-        <motion.div
+        <motion.span
           animate={{ scale: dotScale }}
           transition={{ type: 'spring', stiffness: 400, damping: 28 }}
-          className="-translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-white"
+          className="block w-1.5 h-1.5 rounded-full bg-[#0A0A0A]"
         />
+        {variant === 'image' && (
+          <span className="absolute inset-0 flex items-center justify-center text-[9px] font-display tracking-widest uppercase text-[#C9A66B] font-semibold">
+            Voir
+          </span>
+        )}
       </motion.div>
-
-      <motion.div
-        className="pointer-events-none fixed top-0 left-0 z-[9998]"
-        style={{ x: ringX, y: ringY, opacity: visible ? 1 : 0 }}
-      >
-        <motion.div
-          animate={{ scale: ringScale }}
-          transition={{ type: 'spring', stiffness: 220, damping: 22 }}
-          className="-translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full border flex items-center justify-center"
-          style={{
-            borderColor: variant === 'default' ? 'rgba(10,10,10,0.22)' : '#C9A66B',
-            background: variant === 'image' ? 'rgba(201,166,107,0.2)' : 'transparent',
-            backdropFilter: variant === 'image' ? 'blur(2px)' : 'none',
-          }}
-        >
-          {variant === 'image' && (
-            <span className="text-[9px] font-display tracking-widest uppercase text-[#C9A66B] font-semibold">
-              Voir
-            </span>
-          )}
-        </motion.div>
-      </motion.div>
-    </>
+    </motion.div>
   );
 };
 
