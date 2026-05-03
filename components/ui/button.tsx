@@ -12,17 +12,17 @@ const buttonVariants = cva(
     variants: {
       variant: {
         corporate:
-          "bg-gradient-to-r from-corporate to-corporate-dark text-white hover:shadow-glow-corporate",
+          "bg-[#0A0A0A] text-white hover:bg-[#1a1a1a] hover:shadow-[0_18px_50px_-12px_rgba(10,10,10,0.45)]",
         emotion:
-          "bg-gradient-to-r from-emotion to-emotion-dark text-white hover:shadow-glow-emotion",
+          "bg-[#C9A66B] text-white hover:bg-[#B8956B] hover:shadow-[0_18px_50px_-12px_rgba(201,166,107,0.55)]",
         rose:
-          "bg-gradient-to-r from-emotion-rose to-emotion text-white hover:shadow-glow-rose",
+          "bg-gradient-to-r from-[#C9A66B] to-[#B8956B] text-white hover:shadow-[0_18px_50px_-12px_rgba(201,166,107,0.55)]",
         outline:
-          "border border-white/20 bg-transparent text-white hover:bg-white/10 hover:border-white/30",
+          "border border-[#0A0A0A]/15 bg-transparent text-[#0A0A0A] hover:border-[#C9A66B] hover:text-[#C9A66B]",
         ghost:
-          "bg-transparent text-white/80 hover:text-white hover:bg-white/5",
+          "bg-transparent text-[#0A0A0A]/80 hover:text-[#C9A66B] hover:bg-[#C9A66B]/8",
         link:
-          "text-emotion underline-offset-4 hover:underline bg-transparent",
+          "text-[#C9A66B] underline-offset-4 hover:underline bg-transparent",
       },
       size: {
         default: "h-11 px-6 py-3",

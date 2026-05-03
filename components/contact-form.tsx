@@ -259,14 +259,14 @@ export function ContactForm() {
                       : theme === "rose"
                       ? "bg-emotion-rose text-white"
                       : "bg-emotion text-white"
-                    : "bg-white/10 text-text-muted"
+                    : "bg-[#0A0A0A]/8 text-[#0A0A0A]/45"
                 )}
               >
                 {s}
               </div>
             ))}
           </div>
-          <div className="h-1 bg-white/10 rounded-full overflow-hidden">
+          <div className="h-1 bg-[#0A0A0A]/8 rounded-full overflow-hidden">
             <motion.div
               className={cn(
                 "h-full rounded-full",
@@ -325,7 +325,7 @@ export function ContactForm() {
                                 : type.theme === "rose"
                                 ? "border-emotion-rose bg-emotion-rose/10 shadow-glow-rose"
                                 : "border-emotion bg-emotion/10 shadow-glow-emotion"
-                              : "border-white/10 hover:border-white/20 hover:bg-white/5"
+                              : "border-[#0A0A0A]/10 hover:border-[#C9A66B]/40 hover:bg-[#C9A66B]/5"
                           )}
                         >
                           <Icon
@@ -340,7 +340,7 @@ export function ContactForm() {
                                 : "text-text-muted"
                             )}
                           />
-                          <h4 className="font-heading font-semibold text-white mb-1">
+                          <h4 className="font-heading font-semibold text-[#0A0A0A] mb-1">
                             {type.label}
                           </h4>
                         </button>
@@ -440,7 +440,7 @@ export function ContactForm() {
 
               {/* Champs spécifiques Entreprise */}
               {clientType === "entreprise" && (
-                <div className="pt-4 border-t border-white/10 space-y-4">
+                <div className="pt-4 border-t border-[#0A0A0A]/8 space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="entreprise">
@@ -470,7 +470,7 @@ export function ContactForm() {
 
               {/* Champs spécifiques Institution */}
               {clientType === "institution" && (
-                <div className="pt-4 border-t border-white/10 space-y-4">
+                <div className="pt-4 border-t border-[#0A0A0A]/8 space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="nomStructure">
                       <Building2 className="w-4 h-4 inline mr-2" />
@@ -782,7 +782,7 @@ export function ContactForm() {
         </AnimatePresence>
 
         {/* Navigation */}
-        <div className="flex justify-between mt-8 pt-6 border-t border-white/10">
+        <div className="flex justify-between mt-8 pt-6 border-t border-[#0A0A0A]/8">
           {step > 1 ? (
             <Button type="button" variant="ghost" onClick={handlePrevStep}>
               <ArrowLeft className="w-4 h-4" />

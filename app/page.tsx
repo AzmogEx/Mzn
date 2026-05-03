@@ -153,11 +153,42 @@ export default function Home() {
             </span>
           </motion.div>
 
-          <h1 className="font-display font-bold leading-[0.95] tracking-tight text-[clamp(2.8rem,9vw,9rem)] mb-10">
-            <RevealText text="Capturer" as="span" splitBy="char" stagger={0.025} duration={0.8} className="block" />
-            <RevealText text="l'instant," as="span" splitBy="char" stagger={0.022} delay={0.15} duration={0.8} className="block text-[#C9A66B]" />
-            <RevealText text="diffuser" as="span" splitBy="char" stagger={0.022} delay={0.3} duration={0.8} className="block" />
-            <RevealText text="l'expertise." as="span" splitBy="char" stagger={0.025} delay={0.45} duration={0.9} className="block italic font-light" />
+          <h1 className="font-display font-bold leading-[1.02] tracking-tight text-[clamp(2.5rem,7.5vw,7.5rem)] mb-10 pb-2">
+            <RevealText
+              text="Capturer"
+              as="span"
+              splitBy="word"
+              stagger={0.05}
+              duration={0.9}
+              className="block pb-1"
+            />
+            <RevealText
+              text="l'instant,"
+              as="span"
+              splitBy="word"
+              stagger={0.05}
+              delay={0.15}
+              duration={0.9}
+              className="block text-[#C9A66B] pb-1"
+            />
+            <RevealText
+              text="diffuser"
+              as="span"
+              splitBy="word"
+              stagger={0.05}
+              delay={0.3}
+              duration={0.9}
+              className="block pb-1"
+            />
+            <RevealText
+              text="l'expertise."
+              as="span"
+              splitBy="word"
+              stagger={0.05}
+              delay={0.45}
+              duration={1}
+              className="block italic font-light pb-2"
+            />
           </h1>
 
           <div className="grid md:grid-cols-12 gap-8 items-end">
@@ -371,7 +402,7 @@ export default function Home() {
                               "cubic-bezier(0.22, 1, 0.36, 1)",
                           }}
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/85 via-[#0A0A0A]/30 to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/95 via-[#0A0A0A]/65 to-[#0A0A0A]/15" />
                       </motion.div>
 
                       <div className="absolute top-5 left-5 z-10 flex items-center gap-3">

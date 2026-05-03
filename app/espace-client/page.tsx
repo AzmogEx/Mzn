@@ -146,7 +146,7 @@ export default function EspaceClientPage() {
                       <label className="flex items-center gap-2 cursor-pointer">
                         <input
                           type="checkbox"
-                          className="rounded border-white/20"
+                          className="rounded border-[#0A0A0A]/12"
                         />
                         <span className="text-sm text-text-muted">
                           Se souvenir de moi
@@ -173,7 +173,7 @@ export default function EspaceClientPage() {
 
                   <div className="relative">
                     <div className="absolute inset-0 flex items-center">
-                      <div className="w-full border-t border-white/10" />
+                      <div className="w-full border-t border-[#0A0A0A]/8" />
                     </div>
                     <div className="relative flex justify-center text-xs uppercase">
                       <span className="bg-background px-2 text-text-muted">
@@ -223,7 +223,7 @@ export default function EspaceClientPage() {
                           <Icon className="w-5 h-5 text-emotion" />
                         </div>
                         <div>
-                          <h4 className="font-heading font-semibold text-white">
+                          <h4 className="font-heading font-semibold text-[#0A0A0A]">
                             {feature.title}
                           </h4>
                           <p className="text-sm text-text-muted">

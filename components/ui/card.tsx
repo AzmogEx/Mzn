@@ -26,9 +26,9 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
       <div
         ref={ref}
         className={cn(
-          "rounded-2xl border border-white/10 bg-black/60 backdrop-blur-xl shadow-glass",
+          "rounded-2xl border border-[#0A0A0A]/8 bg-white shadow-[0_8px_32px_-8px_rgba(10,10,10,0.06)]",
           crosshairs && "crosshair",
-          interactive && "cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:border-white/20",
+          interactive && "cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:border-[#C9A66B]/40 hover:shadow-[0_30px_80px_-20px_rgba(201,166,107,0.25)]",
           glowStyles[glowColor],
           className
         )}
@@ -62,9 +62,9 @@ const MotionCard = React.forwardRef<HTMLDivElement, MotionCardProps>(
         transition={{ duration: 0.5, delay, ease: "easeOut" }}
         whileHover={interactive ? { scale: 1.02, y: -5 } : undefined}
         className={cn(
-          "rounded-2xl border border-white/10 bg-black/60 backdrop-blur-xl shadow-glass",
+          "rounded-2xl border border-[#0A0A0A]/8 bg-white shadow-[0_8px_32px_-8px_rgba(10,10,10,0.06)]",
           crosshairs && "crosshair",
-          interactive && "cursor-pointer transition-all duration-500 hover:border-white/20",
+          interactive && "cursor-pointer transition-all duration-500 hover:border-[#C9A66B]/40 hover:shadow-[0_30px_80px_-20px_rgba(201,166,107,0.25)]",
           glowStyles[glowColor],
           className
         )}
@@ -91,7 +91,7 @@ const CardTitle = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HT
   ({ className, ...props }, ref) => (
     <h3
       ref={ref}
-      className={cn("font-heading text-2xl font-semibold text-white leading-none tracking-tight", className)}
+      className={cn("font-heading text-2xl font-semibold text-[#0A0A0A] leading-none tracking-tight", className)}
       {...props}
     />
   )

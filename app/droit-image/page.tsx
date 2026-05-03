@@ -178,7 +178,7 @@ export default function DroitImagePage() {
               </p>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-                <div className="p-4 rounded-lg bg-white/5 border border-white/10">
+                <div className="p-4 rounded-lg bg-white/5 border border-[#0A0A0A]/8">
                   <h4 className="text-white font-medium mb-2">Autorisation standard</h4>
                   <p className="text-sm mb-3">Pour les événements privés et mariages</p>
                   <Button variant="outline" size="sm" disabled>
@@ -187,7 +187,7 @@ export default function DroitImagePage() {
                   </Button>
                 </div>
 
-                <div className="p-4 rounded-lg bg-white/5 border border-white/10">
+                <div className="p-4 rounded-lg bg-white/5 border border-[#0A0A0A]/8">
                   <h4 className="text-white font-medium mb-2">Autorisation mineur</h4>
                   <p className="text-sm mb-3">Nécessite signature des 2 parents</p>
                   <Button variant="outline" size="sm" disabled>
@@ -196,7 +196,7 @@ export default function DroitImagePage() {
                   </Button>
                 </div>
 
-                <div className="p-4 rounded-lg bg-white/5 border border-white/10">
+                <div className="p-4 rounded-lg bg-white/5 border border-[#0A0A0A]/8">
                   <h4 className="text-white font-medium mb-2">Autorisation EHPAD</h4>
                   <p className="text-sm mb-3">Formulaire adapté personnes vulnérables</p>
                   <Button variant="outline" size="sm" disabled>
@@ -205,7 +205,7 @@ export default function DroitImagePage() {
                   </Button>
                 </div>
 
-                <div className="p-4 rounded-lg bg-white/5 border border-white/10">
+                <div className="p-4 rounded-lg bg-white/5 border border-[#0A0A0A]/8">
                   <h4 className="text-white font-medium mb-2">Autorisation entreprise</h4>
                   <p className="text-sm mb-3">Pour collaborateurs et intervenants</p>
                   <Button variant="outline" size="sm" disabled>

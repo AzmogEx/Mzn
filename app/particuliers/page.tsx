@@ -229,14 +229,14 @@ function ProcessSection() {
 
       {/* Delay Info */}
       <motion.div
-        className="mt-16 p-6 rounded-2xl bg-white/5 border border-white/10 text-center"
+        className="mt-16 p-6 rounded-2xl bg-white/5 border border-[#0A0A0A]/8 text-center"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
       >
         <div className="flex items-center justify-center gap-2 mb-2">
           <Clock className="w-5 h-5 text-emotion-rose" />
-          <span className="font-heading font-semibold text-white">
+          <span className="font-heading font-semibold text-[#0A0A0A]">
             Délais de livraison
           </span>
         </div>

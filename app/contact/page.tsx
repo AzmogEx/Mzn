@@ -114,7 +114,7 @@ export default function ContactPage() {
                             <span className="text-xs text-text-muted uppercase tracking-wider">
                               {info.label}
                             </span>
-                            <div className="font-heading font-semibold text-white mt-1 flex items-center gap-2">
+                            <div className="font-heading font-semibold text-[#0A0A0A] mt-1 flex items-center gap-2">
                               {info.value}
                               <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                             </div>
@@ -133,7 +133,7 @@ export default function ContactPage() {
                           <span className="text-xs text-text-muted uppercase tracking-wider">
                             {info.label}
                           </span>
-                          <div className="font-heading font-semibold text-white mt-1">
+                          <div className="font-heading font-semibold text-[#0A0A0A] mt-1">
                             {info.value}
                           </div>
                           <p className="text-sm text-text-muted mt-1">

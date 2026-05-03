@@ -214,7 +214,7 @@ export function ServiceLayout({
         </div>
 
         {/* Decorations */}
-        <div className="absolute top-28 right-8 text-white/10 text-xs font-mono">
+        <div className="absolute top-28 right-8 text-[#0A0A0A]/15 text-xs font-mono">
           + MIS_SERVICE
         </div>
         {themeColor === "corporate" && (
@@ -226,7 +226,7 @@ export function ServiceLayout({
       </section>
 
       {/* Features Section */}
-      <section className="relative py-24 border-t border-white/10">
+      <section className="relative py-24 border-t border-[#0A0A0A]/8">
         <div className="container mx-auto px-4">
           {/* Section Header */}
           <motion.div
@@ -290,13 +290,13 @@ export function ServiceLayout({
 
       {/* Additional Content Slot */}
       {additionalContent && (
-        <section className="relative py-24 border-t border-white/10">
+        <section className="relative py-24 border-t border-[#0A0A0A]/8">
           {additionalContent}
         </section>
       )}
 
       {/* Offers Section */}
-      <section className="relative py-24 border-t border-white/10 bg-background-secondary/50">
+      <section className="relative py-24 border-t border-[#0A0A0A]/8 bg-[#FAFAFA]">
         <div className="absolute inset-0 tech-grid opacity-10" />
         <div className="container mx-auto px-4 relative">
           {/* Section Header */}
@@ -373,7 +373,7 @@ export function ServiceLayout({
                   </div>
 
                   {/* CTA */}
-                  <div className="pt-6 mt-6 border-t border-white/10">
+                  <div className="pt-6 mt-6 border-t border-[#0A0A0A]/8">
                     <Button
                       variant={offer.popular ? theme.button : "outline"}
                       className="w-full"
@@ -394,7 +394,7 @@ export function ServiceLayout({
 
       {/* Testimonial Section */}
       {testimonial && (
-        <section className="relative py-24 border-t border-white/10">
+        <section className="relative py-24 border-t border-[#0A0A0A]/8">
           <div className="container mx-auto px-4">
             <motion.div
               className="max-w-3xl mx-auto text-center"
@@ -403,11 +403,11 @@ export function ServiceLayout({
               viewport={{ once: true }}
             >
               <div className={cn("text-6xl mb-6", theme.text)}>&ldquo;</div>
-              <blockquote className="text-xl md:text-2xl text-white font-light leading-relaxed mb-8">
+              <blockquote className="text-xl md:text-2xl text-[#0A0A0A] font-light leading-relaxed mb-8">
                 {testimonial.quote}
               </blockquote>
               <div className="space-y-1">
-                <div className="font-semibold text-white">{testimonial.author}</div>
+                <div className="font-semibold text-[#0A0A0A]">{testimonial.author}</div>
                 <div className="text-sm text-text-muted">
                   {testimonial.role}
                   {testimonial.company && ` — ${testimonial.company}`}
@@ -419,7 +419,7 @@ export function ServiceLayout({
       )}
 
       {/* CTA Section */}
-      <section className="relative py-24 border-t border-white/10">
+      <section className="relative py-24 border-t border-[#0A0A0A]/8">
         <div className="container mx-auto px-4">
           <MotionCard
             glowColor={themeColor === "corporate" ? "corporate" : themeColor === "rose" ? "rose" : "emotion"}

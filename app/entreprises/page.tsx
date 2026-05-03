@@ -189,7 +189,7 @@ function TechnicalSpecsSection() {
                   <div className="w-10 h-10 rounded-lg bg-corporate/10 border border-corporate/20 flex items-center justify-center">
                     <Icon className="w-5 h-5 text-corporate" />
                   </div>
-                  <h3 className="font-heading font-semibold text-white">
+                  <h3 className="font-heading font-semibold text-[#0A0A0A]">
                     {spec.category}
                   </h3>
                 </div>
@@ -209,20 +209,20 @@ function TechnicalSpecsSection() {
 
       {/* Trust Badges */}
       <motion.div
-        className="flex flex-wrap justify-center gap-6 mt-12 pt-12 border-t border-white/10"
+        className="flex flex-wrap justify-center gap-6 mt-12 pt-12 border-t border-[#0A0A0A]/8"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
       >
-        <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10">
+        <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-[#0A0A0A]/8">
           <Zap className="w-4 h-4 text-corporate" />
           <span className="text-sm text-text-muted">Réactivité 48h</span>
         </div>
-        <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10">
+        <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-[#0A0A0A]/8">
           <Shield className="w-4 h-4 text-corporate" />
           <span className="text-sm text-text-muted">Assurance RC Pro</span>
         </div>
-        <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10">
+        <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-[#0A0A0A]/8">
           <Server className="w-4 h-4 text-corporate" />
           <span className="text-sm text-text-muted">Backup équipement</span>
         </div>

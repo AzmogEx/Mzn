@@ -1,7 +1,6 @@
 'use client';
 
 import { motion, Variants } from 'framer-motion';
-import { ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 
 interface RevealTextProps {
@@ -62,25 +61,39 @@ const RevealText = ({
   };
 
   return (
-    <Tag className={cn('overflow-hidden', className)} style={{ perspective: 600 }}>
+    <Tag className={cn(className)} style={{ perspective: 600 }}>
       <motion.span
         variants={container}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once, amount: 0.4 }}
+        viewport={{ once, amount: 0.3 }}
         className="inline-block"
       >
         {segments.map((seg, i) => {
           const isItalic = italicWords.includes(seg);
           const isGold = goldWords.includes(seg);
           return (
-            <span key={i} className="inline-block overflow-hidden align-baseline" style={{ paddingBottom: '0.05em' }}>
+            <span
+              key={i}
+              className="inline-block align-baseline"
+              style={{
+                overflow: 'hidden',
+                paddingTop: '0.18em',
+                paddingBottom: '0.22em',
+                marginTop: '-0.18em',
+                marginBottom: '-0.22em',
+              }}
+            >
               <motion.span
                 variants={child}
-                className={cn('inline-block will-change-transform', isItalic && 'italic', isGold && 'text-[#C9A66B]')}
+                className={cn(
+                  'inline-block will-change-transform',
+                  isItalic && 'italic',
+                  isGold && 'text-[#C9A66B]'
+                )}
               >
                 {seg}
-                {splitBy === 'word' && i < segments.length - 1 && ' '}
+                {splitBy === 'word' && i < segments.length - 1 && ' '}
               </motion.span>
             </span>
           );

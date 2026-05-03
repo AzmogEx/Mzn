@@ -79,14 +79,15 @@ const CustomCursor = () => {
         <motion.div
           animate={{ scale: ringScale }}
           transition={{ type: 'spring', stiffness: 220, damping: 22 }}
-          className="-translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full border border-[#C9A66B] flex items-center justify-center"
+          className="-translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full border flex items-center justify-center"
           style={{
-            background: variant === 'image' ? 'rgba(201,166,107,0.18)' : 'transparent',
+            borderColor: variant === 'default' ? 'rgba(10,10,10,0.22)' : '#C9A66B',
+            background: variant === 'image' ? 'rgba(201,166,107,0.2)' : 'transparent',
             backdropFilter: variant === 'image' ? 'blur(2px)' : 'none',
           }}
         >
           {variant === 'image' && (
-            <span className="text-[10px] font-display tracking-widest uppercase text-[#C9A66B]">
+            <span className="text-[9px] font-display tracking-widest uppercase text-[#C9A66B] font-semibold">
               Voir
             </span>
           )}
