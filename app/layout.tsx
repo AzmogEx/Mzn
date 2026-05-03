@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
-import { Inter, Syne } from "next/font/google";
+import { Inter, Syne, Montserrat } from "next/font/google";
 import { Navbar, Footer } from "@/components/layout";
+import CustomCursor from "@/components/premium/CustomCursor";
+import LoadingScreen from "@/components/premium/LoadingScreen";
+import ScrollProgress from "@/components/premium/ScrollProgress";
 import "./globals.css";
 
 const inter = Inter({
@@ -15,16 +18,23 @@ const syne = Syne({
   display: "swap",
 });
 
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://mis-prod.fr"),
   title: {
-    default: "Mémoire Image & Sons | Production Vidéo Professionnelle",
+    default: "Mémoire Image & Sons | Studio Photographie & Production Audiovisuelle",
     template: "%s | Mémoire Image & Sons",
   },
   description:
-    "Production vidéo professionnelle pour institutions (EHPAD), entreprises (Plateaux TV, Streaming) et particuliers (Mariages). Capturer l'Instant, Diffuser l'Expertise, Réveiller la Mémoire.",
+    "Studio premium de photographie et production audiovisuelle pour institutions (EHPAD), entreprises (Plateaux TV, Streaming) et particuliers (Mariages). Capturer l'instant, sublimer l'émotion.",
   keywords: [
     "production vidéo",
+    "photographie",
     "EHPAD",
     "ateliers mémoire",
     "plateau TV",
@@ -43,9 +53,9 @@ export const metadata: Metadata = {
     locale: "fr_FR",
     url: "https://mis-prod.fr",
     siteName: "Mémoire Image & Sons",
-    title: "Mémoire Image & Sons | Production Vidéo Professionnelle",
+    title: "Mémoire Image & Sons | Studio Photographie & Production Audiovisuelle",
     description:
-      "Production vidéo professionnelle pour institutions, entreprises et particuliers.",
+      "Studio premium de photographie et production audiovisuelle. Institutions, entreprises, particuliers.",
     images: [
       {
         url: "/og-image.jpg",
@@ -58,7 +68,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Mémoire Image & Sons",
-    description: "Production vidéo professionnelle",
+    description: "Studio photographie & production audiovisuelle premium",
   },
   robots: {
     index: true,
@@ -79,8 +89,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className="dark">
-      <body className={`${inter.variable} ${syne.variable} font-body antialiased`}>
+    <html lang="fr" className="scroll-smooth">
+      <body
+        className={`${inter.variable} ${syne.variable} ${montserrat.variable} font-body antialiased bg-[#FAFAFA] text-[#0A0A0A] overflow-x-hidden`}
+      >
+        <a href="#main-content" className="skip-link">
+          Aller au contenu principal
+        </a>
+        <LoadingScreen />
+        <ScrollProgress />
+        <CustomCursor />
+        <div className="noise-fixed" aria-hidden />
         <Navbar />
         <main id="main-content" className="min-h-screen">
           {children}

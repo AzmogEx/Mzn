@@ -1,383 +1,440 @@
 "use client";
 
-import React from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import {
+  ArrowDownRight,
+  ArrowUpRight,
   Building2,
-  Users,
   Heart,
-  ArrowRight,
   Play,
   Sparkles,
   Tv,
-  Brain,
-  Camera,
-  ChevronRight,
-  Zap,
-  Shield,
-  Award,
+  Users,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { MotionCard } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
+import RevealText from "@/components/premium/RevealText";
+import MagneticButton from "@/components/premium/MagneticButton";
+import GradientOrbs from "@/components/premium/GradientOrbs";
+import Marquee from "@/components/premium/Marquee";
+import TiltCard from "@/components/premium/TiltCard";
 
-// Animation variants
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: "easeOut" },
-  },
-};
-
-// Bento Grid Items Data
-const bentoItems = [
+const universes = [
   {
     id: "institutions",
     title: "Institutions",
     subtitle: "EHPAD & Santé",
-    description: "Soigner par l'image & Ateliers Mémoire",
-    longDescription:
-      "Stimulation cognitive, ateliers réminiscence et documentaires de vie pour les résidents.",
+    description:
+      "Soigner par l'image, ateliers mémoire et documentaires de vie pour les résidents.",
     href: "/institutions",
     icon: Building2,
-    secondaryIcon: Brain,
-    theme: "emotion" as const,
-    image: "https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?w=800&auto=format&fit=crop&q=80",
-    size: "large",
-    stats: [
-      { label: "EHPAD partenaires", value: "15+" },
-      { label: "Ateliers/an", value: "200+" },
-    ],
-    tags: ["Ateliers Mémoire", "Réminiscence", "Thérapie"],
+    image:
+      "https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?w=1200&auto=format&fit=crop&q=80",
+    tags: ["Ateliers Mémoire", "Réminiscence", "Documentaire"],
+    number: "01",
   },
   {
     id: "entreprises",
     title: "Entreprises",
     subtitle: "Corporate & Broadcast",
-    description: "Plateaux TV, Live Streaming & Communication",
-    longDescription:
-      "Solutions broadcast professionnelles, plateaux TV mobiles et streaming haute qualité.",
+    description:
+      "Plateaux TV mobiles, live streaming 4K et communication audiovisuelle haut de gamme.",
     href: "/entreprises",
-    icon: Users,
-    secondaryIcon: Tv,
-    theme: "corporate" as const,
-    image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&auto=format&fit=crop&q=80",
-    size: "large",
-    stats: [
-      { label: "Events/an", value: "50+" },
-      { label: "Qualité", value: "4K+" },
-    ],
+    icon: Tv,
+    image:
+      "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=1200&auto=format&fit=crop&q=80",
     tags: ["Plateau TV", "Streaming", "4K"],
+    number: "02",
   },
   {
     id: "particuliers",
     title: "Particuliers",
     subtitle: "Mariages & Famille",
-    description: "Films de Mariage & Récits de Vie",
-    longDescription:
-      "Captation d'émotions, biographies vidéo et héritage familial pour les générations futures.",
+    description:
+      "Films de mariage, biographies vidéo et héritage familial pour les générations futures.",
     href: "/particuliers",
     icon: Heart,
-    secondaryIcon: Camera,
-    theme: "rose" as const,
-    image: "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&auto=format&fit=crop&q=80",
-    size: "large",
-    stats: [
-      { label: "Mariages/an", value: "30+" },
-      { label: "Satisfaction", value: "100%" },
-    ],
+    image:
+      "https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&auto=format&fit=crop&q=80",
     tags: ["Mariage", "Biographie", "Héritage"],
+    number: "03",
   },
 ];
 
-// Features data
-const features = [
-  {
-    icon: Zap,
-    title: "Réactivité",
-    description: "Devis en 48h, équipe mobilisable rapidement",
-  },
-  {
-    icon: Shield,
-    title: "Confidentialité",
-    description: "Droit à l'image et données sécurisées (RGPD)",
-  },
-  {
-    icon: Award,
-    title: "Expertise",
-    description: "10 ans d'expérience en captation professionnelle",
-  },
+const stats = [
+  { number: "500+", label: "Projets réalisés", detail: "Depuis 2017" },
+  { number: "08", label: "Années d'expérience", detail: "Studio indépendant" },
+  { number: "100%", label: "Satisfaction client", detail: "4.9 ★ moyenne" },
 ];
 
-export default function HomePage() {
+export default function Home() {
+  const [mounted, setMounted] = useState(false);
+  const heroRef = useRef<HTMLElement>(null);
+  const [scrollTarget, setScrollTarget] = useState<
+    React.RefObject<HTMLElement> | undefined
+  >(undefined);
+
+  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    setScrollTarget(heroRef);
+  }, []);
+
+  const { scrollYProgress } = useScroll({
+    target: scrollTarget,
+    offset: ["start start", "end start"],
+  });
+
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
+  const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
+  const titleY = useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]);
+  const titleOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+
+  if (!mounted) return null;
+
+  const scrollTo = (id: string) =>
+    document.querySelector(id)?.scrollIntoView({ behavior: "smooth" });
+
   return (
-    <div className="relative">
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Background */}
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/70 to-background z-10" />
-          <Image
-            src="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=1920&auto=format&fit=crop&q=80"
-            alt="Production vidéo"
-            fill
-            className="object-cover opacity-50"
-            priority
+    <>
+      {/* HERO */}
+      <section
+        ref={heroRef}
+        className="relative min-h-screen flex flex-col overflow-hidden bg-[#FAFAFA] noise-overlay"
+      >
+        <motion.div
+          style={{ y: bgY, scale: bgScale }}
+          className="absolute inset-0 -z-10"
+        >
+          <div className="absolute inset-0 bg-gradient-to-br from-[#FAFAFA] via-[#F4EFE6] to-[#EDE3CF]" />
+          <div
+            className="absolute inset-0 bg-cover bg-center opacity-[0.07] mix-blend-multiply"
+            style={{
+              backgroundImage:
+                "url('https://images.pexels.com/photos/1687845/pexels-photo-1687845.jpeg?auto=compress&cs=tinysrgb&w=1920')",
+            }}
           />
-          {/* Technical Grid Overlay */}
-          <div className="absolute inset-0 tech-grid z-20 opacity-30" />
+          <GradientOrbs variant="hero" />
+        </motion.div>
+
+        <div className="absolute top-32 left-6 lg:left-12 z-10 hidden md:block">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-px bg-[#C9A66B]" />
+            <span className="text-[10px] tracking-[0.4em] uppercase text-[#C9A66B] font-medium">
+              Studio · Est. 2017
+            </span>
+          </div>
         </div>
 
-        {/* Hero Content */}
-        <div className="relative z-30 container mx-auto px-4 pt-32 pb-20">
+        <div className="absolute top-32 right-6 lg:right-12 z-10 hidden md:flex flex-col items-end gap-2">
+          <span className="text-[10px] tracking-[0.4em] uppercase text-[#666]">
+            Nîmes — Occitanie
+          </span>
+          <span className="text-[10px] tracking-[0.4em] uppercase text-[#999] tabular-nums">
+            43.8367° N
+          </span>
+        </div>
+
+        <motion.div
+          style={{ y: titleY, opacity: titleOpacity }}
+          className="relative z-10 flex-1 w-full max-w-7xl mx-auto px-6 lg:px-8 pt-40 md:pt-48 pb-20 flex flex-col justify-center"
+        >
           <motion.div
-            className="max-w-4xl mx-auto text-center space-y-8"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="flex items-center gap-4 mb-8"
           >
-            {/* Badge */}
-            <motion.div variants={itemVariants}>
-              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emotion/10 border border-emotion/20 text-emotion text-sm">
-                <Sparkles className="w-4 h-4" />
-                Production Vidéo Professionnelle
-              </span>
-            </motion.div>
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-[#C9A66B] opacity-60 animate-pulse-ring" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-[#C9A66B]" />
+            </span>
+            <span className="text-xs md:text-sm tracking-[0.3em] uppercase text-[#C9A66B] font-medium">
+              Photographie · Audiovisuel
+            </span>
+          </motion.div>
 
-            {/* Main Heading */}
-            <motion.h1
-              variants={itemVariants}
-              className="heading-xl"
-            >
-              Capturer l&apos;Instant,{" "}
-              <span className="text-gradient-corporate">Diffuser l&apos;Expertise</span>,{" "}
-              <span className="text-gradient-emotion">Réveiller la Mémoire</span>
-            </motion.h1>
+          <h1 className="font-display font-bold leading-[0.95] tracking-tight text-[clamp(2.8rem,9vw,9rem)] mb-10">
+            <RevealText text="Capturer" as="span" splitBy="char" stagger={0.025} duration={0.8} className="block" />
+            <RevealText text="l'instant," as="span" splitBy="char" stagger={0.022} delay={0.15} duration={0.8} className="block text-[#C9A66B]" />
+            <RevealText text="diffuser" as="span" splitBy="char" stagger={0.022} delay={0.3} duration={0.8} className="block" />
+            <RevealText text="l'expertise." as="span" splitBy="char" stagger={0.025} delay={0.45} duration={0.9} className="block italic font-light" />
+          </h1>
 
-            {/* Subtitle */}
+          <div className="grid md:grid-cols-12 gap-8 items-end">
             <motion.p
-              variants={itemVariants}
-              className="body-lg max-w-2xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 1 }}
+              className="md:col-span-5 text-base md:text-lg text-[#3a3a3a] leading-relaxed max-w-xl"
             >
-              Du mariage à l'EHPAD, au plateau TV jusqu'a à la conférence
-              internationale : une équipe, trois univers, une seule promesse de
-              qualité.
+              <span className="text-[#C9A66B] font-semibold">MIS</span> – Mémoire Image &amp; Sons.
+              Studio de photographie et production audiovisuelle pour institutions, entreprises et
+              particuliers. Trois univers, une exigence : l'exception.
             </motion.p>
 
-            {/* CTA Buttons */}
             <motion.div
-              variants={itemVariants}
-              className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 1.15 }}
+              className="md:col-span-7 flex flex-wrap gap-4 md:justify-end items-center"
             >
-              <Button variant="emotion" size="lg" asChild>
-                <Link href="/contact">
-                  Demander un devis
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </Button>
-              <Button variant="outline" size="lg" asChild>
-                <Link href="#services">
-                  <Play className="w-4 h-4" />
-                  Découvrir nos services
-                </Link>
-              </Button>
-            </motion.div>
+              <Link href="/contact" className="block">
+                <MagneticButton variant="dark">
+                  <span>Demander un devis</span>
+                  <ArrowUpRight size={18} />
+                </MagneticButton>
+              </Link>
 
-            {/* Scroll Indicator */}
-            <motion.div
-              variants={itemVariants}
-              className="pt-12"
-              animate={{ y: [0, 10, 0] }}
-              transition={{ repeat: Infinity, duration: 2 }}
-            >
-              <ChevronRight className="w-6 h-6 text-text-muted mx-auto rotate-90" />
+              <MagneticButton variant="ghost" onClick={() => scrollTo("#univers")}>
+                <span className="relative w-9 h-9 rounded-full border border-current flex items-center justify-center">
+                  <Play size={12} className="ml-0.5 fill-current" />
+                  <span className="absolute inset-0 rounded-full border border-[#C9A66B] animate-pulse-ring" />
+                </span>
+                <span>Découvrir nos univers</span>
+              </MagneticButton>
             </motion.div>
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 1.4 }}
+            className="grid grid-cols-3 gap-6 md:gap-12 mt-20 md:mt-28 max-w-4xl border-t border-[#0A0A0A]/10 pt-10"
+          >
+            {stats.map((stat, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 1.5 + index * 0.1 }}
+              >
+                <div className="overflow-hidden">
+                  <motion.h3
+                    initial={{ y: "100%" }}
+                    animate={{ y: "0%" }}
+                    transition={{
+                      duration: 0.9,
+                      delay: 1.6 + index * 0.1,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                    className="text-3xl md:text-5xl font-display font-bold tracking-tight"
+                  >
+                    {stat.number}
+                  </motion.h3>
+                </div>
+                <p className="text-xs md:text-sm text-[#0A0A0A] font-medium mt-2">
+                  {stat.label}
+                </p>
+                <p className="text-[10px] tracking-[0.2em] uppercase text-[#999] mt-1">
+                  {stat.detail}
+                </p>
+              </motion.div>
+            ))}
           </motion.div>
-        </div>
+        </motion.div>
 
-        {/* Corner Decorations */}
-        <div className="absolute top-24 left-8 text-white/10 text-xs font-mono">
-          + MIS_HERO_01
-        </div>
-        <div className="absolute bottom-8 right-8 text-white/10 text-xs font-mono flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-rec animate-pulse" />
-          LIVE
-        </div>
+        <motion.button
+          onClick={() => scrollTo("#univers")}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.6 }}
+          className="absolute bottom-28 right-6 md:right-12 z-10 flex flex-col items-center gap-3"
+          aria-label="Défiler"
+        >
+          <span className="text-[10px] tracking-[0.4em] uppercase text-[#666] [writing-mode:vertical-rl] rotate-180">
+            Défiler
+          </span>
+          <span className="relative block w-px h-16 bg-[#0A0A0A]/15 overflow-hidden">
+            <span className="absolute inset-x-0 top-0 h-1/2 bg-[#C9A66B] animate-scroll-line" />
+          </span>
+          <ArrowDownRight size={16} className="text-[#C9A66B]" />
+        </motion.button>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 1.8 }}
+          className="relative z-10 border-t border-b border-[#0A0A0A]/10 py-6 bg-white/40 backdrop-blur-sm"
+        >
+          <Marquee speed="slow">
+            {[
+              "Plateaux TV",
+              "·",
+              "Mariages",
+              "·",
+              "Streaming live",
+              "·",
+              "Ateliers mémoire",
+              "·",
+              "Documentaires",
+              "·",
+              "Captation 4K",
+              "·",
+              "Direction artistique",
+              "·",
+            ].map((word, i) => (
+              <span
+                key={i}
+                className={`text-3xl md:text-5xl font-display font-light tracking-tight ${
+                  word === "·" ? "text-[#C9A66B]" : "text-[#0A0A0A]/80"
+                } ${i % 4 === 1 ? "italic" : ""}`}
+              >
+                {word}
+              </span>
+            ))}
+          </Marquee>
+        </motion.div>
       </section>
 
-      {/* Bento Grid Section */}
-      <section id="services" className="relative py-24 overflow-hidden">
-        <div className="container mx-auto px-4">
-          {/* Section Header */}
-          <motion.div
-            className="text-center space-y-4 mb-16"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <span className="text-sm text-text-muted uppercase tracking-wider">
-              Nos Univers
-            </span>
-            <h2 className="heading-lg">
-              Trois expertises, une <span className="text-gradient-emotion">vision</span>
-            </h2>
-            <p className="body-md max-w-2xl mx-auto">
-              Chaque projet est unique. Découvrez l&apos;univers qui correspond à vos
-              besoins et laissez-nous créer ensemble.
-            </p>
-          </motion.div>
+      {/* UNIVERS — 3 segments métier */}
+      <section id="univers" className="relative py-32 bg-white overflow-hidden">
+        <GradientOrbs variant="subtle" className="opacity-60" />
 
-          {/* Bento Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {bentoItems.map((item, index) => {
-              const Icon = item.icon;
-              const SecondaryIcon = item.secondaryIcon;
-              const glowClass =
-                item.theme === "corporate"
-                  ? "group-hover:shadow-glow-corporate"
-                  : item.theme === "rose"
-                  ? "group-hover:shadow-glow-rose"
-                  : "group-hover:shadow-glow-emotion";
-              const borderClass =
-                item.theme === "corporate"
-                  ? "group-hover:border-corporate/40"
-                  : item.theme === "rose"
-                  ? "group-hover:border-emotion-rose/40"
-                  : "group-hover:border-emotion/40";
-              const accentColor =
-                item.theme === "corporate"
-                  ? "text-corporate"
-                  : item.theme === "rose"
-                  ? "text-emotion-rose"
-                  : "text-emotion";
+        <div className="absolute -top-20 left-0 right-0 select-none pointer-events-none whitespace-nowrap overflow-hidden">
+          <span className="font-display font-bold text-[14vw] leading-none text-[#0A0A0A]/[0.025] tracking-tight italic">
+            Univers · Univers ·
+          </span>
+        </div>
 
+        <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid md:grid-cols-12 gap-8 mb-20 items-end">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="md:col-span-2 flex md:flex-col gap-2 items-start"
+            >
+              <span className="text-[10px] tracking-[0.4em] uppercase text-[#C9A66B] font-semibold">
+                ① Univers
+              </span>
+              <span className="hidden md:block w-12 h-px bg-[#C9A66B] mt-2" />
+            </motion.div>
+
+            <div className="md:col-span-7">
+              <RevealText
+                text="Trois univers, une exigence."
+                as="h2"
+                splitBy="word"
+                stagger={0.07}
+                className="text-5xl md:text-7xl lg:text-8xl font-display font-bold leading-[0.95] tracking-tight"
+                goldWords={["univers,"]}
+                italicWords={["exigence."]}
+              />
+            </div>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="md:col-span-3 text-[#666] leading-relaxed"
+            >
+              Trois pôles métier distincts, une même obsession : raconter votre histoire avec
+              précision technique et sensibilité artistique.
+            </motion.p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+            {universes.map((univ, index) => {
+              const Icon = univ.icon;
               return (
                 <motion.div
-                  key={item.id}
-                  initial={{ opacity: 0, y: 30 }}
+                  key={univ.id}
+                  initial={{ opacity: 0, y: 60 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{
+                    duration: 0.9,
+                    delay: index * 0.12,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  data-cursor="image"
                 >
-                  <Link href={item.href} className="block group h-full">
-                    <div
-                      className={cn(
-                        "relative h-full rounded-2xl border border-white/10 bg-black/60 backdrop-blur-xl overflow-hidden transition-all duration-500",
-                        glowClass,
-                        borderClass,
-                        "crosshair"
-                      )}
-                    >
-                      {/* Background Image */}
-                      <div className="absolute inset-0 z-0">
-                        <Image
-                          src={item.image}
-                          alt={item.title}
-                          fill
-                          className="object-cover opacity-30 group-hover:opacity-40 group-hover:scale-105 transition-all duration-700"
+                  <Link href={univ.href} className="block">
+                    <TiltCard className="group relative aspect-[4/5] rounded-3xl overflow-hidden">
+                      <motion.div
+                        initial={{ scale: 1.2, filter: "brightness(0.6)" }}
+                        whileInView={{ scale: 1, filter: "brightness(1)" }}
+                        viewport={{ once: true, amount: 0.3 }}
+                        transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
+                        className="absolute inset-0"
+                      >
+                        <img
+                          src={univ.image}
+                          alt={univ.title}
+                          loading="lazy"
+                          className="w-full h-full object-cover transition-transform group-hover:scale-110"
+                          style={{
+                            transitionDuration: "1.4s",
+                            transitionTimingFunction:
+                              "cubic-bezier(0.22, 1, 0.36, 1)",
+                          }}
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/85 via-[#0A0A0A]/30 to-transparent" />
+                      </motion.div>
+
+                      <div className="absolute top-5 left-5 z-10 flex items-center gap-3">
+                        <span className="text-[10px] tracking-[0.3em] uppercase text-white/70 tabular-nums">
+                          / {univ.number}
+                        </span>
                       </div>
 
-                      {/* Content */}
-                      <div className="relative z-10 p-8 h-full flex flex-col min-h-[420px]">
-                        {/* Header */}
-                        <div className="flex items-start justify-between mb-6">
-                          <div
-                            className={cn(
-                              "w-14 h-14 rounded-xl flex items-center justify-center transition-all duration-300",
-                              item.theme === "corporate"
-                                ? "bg-corporate/20 border border-corporate/30 group-hover:bg-corporate/30"
-                                : item.theme === "rose"
-                                ? "bg-emotion-rose/20 border border-emotion-rose/30 group-hover:bg-emotion-rose/30"
-                                : "bg-emotion/20 border border-emotion/30 group-hover:bg-emotion/30"
-                            )}
+                      <div className="absolute top-5 right-5 z-10 w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/15 flex items-center justify-center transition-all duration-500 group-hover:bg-[#C9A66B] group-hover:scale-110">
+                        <ArrowUpRight
+                          size={16}
+                          className="text-white transition-transform group-hover:rotate-45"
+                        />
+                      </div>
+
+                      <div className="absolute inset-x-0 bottom-0 p-6 md:p-8 z-10">
+                        <div className="flex items-center gap-2 mb-3">
+                          <Icon size={14} className="text-[#C9A66B]" />
+                          <span className="text-[10px] tracking-[0.3em] uppercase text-[#C9A66B] font-semibold">
+                            {univ.subtitle}
+                          </span>
+                        </div>
+                        <div className="overflow-hidden mb-3">
+                          <motion.h3
+                            initial={{ y: "110%" }}
+                            whileInView={{ y: "0%" }}
+                            viewport={{ once: true, amount: 0.3 }}
+                            transition={{
+                              duration: 0.8,
+                              delay: 0.3 + index * 0.05,
+                              ease: [0.22, 1, 0.36, 1],
+                            }}
+                            className="text-3xl md:text-4xl font-display font-bold text-white tracking-tight"
                           >
-                            <Icon className={cn("w-6 h-6", accentColor)} />
-                          </div>
-                          <SecondaryIcon
-                            className={cn(
-                              "w-8 h-8 opacity-20 group-hover:opacity-40 transition-opacity",
-                              accentColor
-                            )}
-                          />
+                            {univ.title}
+                          </motion.h3>
                         </div>
-
-                        {/* Title & Description */}
-                        <div className="flex-grow space-y-4">
-                          <div>
-                            <span className={cn("text-xs uppercase tracking-wider", accentColor)}>
-                              {item.subtitle}
+                        <p className="text-white/70 text-sm leading-relaxed mb-4">
+                          {univ.description}
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                          {univ.tags.map((tag) => (
+                            <span
+                              key={tag}
+                              className="px-2.5 py-1 text-[10px] tracking-[0.15em] uppercase rounded-full bg-white/10 backdrop-blur-md text-white/85 border border-white/15"
+                            >
+                              {tag}
                             </span>
-                            <h3 className="heading-md mt-1 group-hover:text-white transition-colors">
-                              {item.title}
-                            </h3>
-                          </div>
-                          <p className="text-lg text-text-secondary font-medium">
-                            {item.description}
-                          </p>
-                          <p className="body-sm">
-                            {item.longDescription}
-                          </p>
-
-                          {/* Tags */}
-                          <div className="flex flex-wrap gap-2 pt-2">
-                            {item.tags.map((tag) => (
-                              <span
-                                key={tag}
-                                className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-text-muted"
-                              >
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-
-                        {/* Stats */}
-                        <div className="grid grid-cols-2 gap-4 pt-6 mt-6 border-t border-white/10">
-                          {item.stats.map((stat) => (
-                            <div key={stat.label}>
-                              <div className={cn("text-2xl font-heading font-bold", accentColor)}>
-                                {stat.value}
-                              </div>
-                              <div className="text-xs text-text-muted">
-                                {stat.label}
-                              </div>
-                            </div>
                           ))}
                         </div>
 
-                        {/* CTA */}
-                        <div className="flex items-center gap-2 pt-6 text-sm font-medium text-white group-hover:gap-3 transition-all">
-                          Découvrir
-                          <ArrowRight className="w-4 h-4" />
-                        </div>
+                        <motion.div
+                          initial={{ scaleX: 0 }}
+                          whileInView={{ scaleX: 1 }}
+                          viewport={{ once: true, amount: 0.3 }}
+                          transition={{
+                            duration: 0.8,
+                            delay: 0.6 + index * 0.05,
+                          }}
+                          className="mt-5 h-px w-full bg-gradient-to-r from-[#C9A66B] via-[#E5D3A8]/40 to-transparent origin-left"
+                        />
                       </div>
-
-                      {/* REC Indicator for Live */}
-                      {item.id === "entreprises" && (
-                        <div className="absolute top-4 right-4 flex items-center gap-2 text-xs text-rec font-mono">
-                          <span className="w-2 h-2 rounded-full bg-rec animate-pulse" />
-                          LIVE
-                        </div>
-                      )}
-                    </div>
+                    </TiltCard>
                   </Link>
                 </motion.div>
               );
@@ -386,75 +443,159 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="relative py-24 border-t border-white/10">
-        <div className="absolute inset-0 tech-grid opacity-20" />
-        <div className="container mx-auto px-4 relative">
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-3 gap-8"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            {features.map((feature, index) => {
-              const Icon = feature.icon;
-              return (
-                <motion.div
-                  key={feature.title}
-                  variants={itemVariants}
-                  className="text-center space-y-4"
-                >
-                  <div className="w-16 h-16 rounded-2xl bg-emotion/10 border border-emotion/20 flex items-center justify-center mx-auto">
-                    <Icon className="w-7 h-7 text-emotion" />
+      {/* MANIFESTE / À propos rapide */}
+      <section className="relative py-32 bg-[#FAFAFA] overflow-hidden">
+        <GradientOrbs variant="subtle" />
+
+        <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="flex items-center gap-3 mb-10">
+            <span className="text-[10px] tracking-[0.4em] uppercase text-[#C9A66B] font-semibold">
+              ② Manifeste
+            </span>
+            <span className="w-12 h-px bg-[#C9A66B]" />
+          </div>
+
+          <div className="grid lg:grid-cols-12 gap-12 items-start">
+            <div className="lg:col-span-7">
+              <RevealText
+                text={"L'art de capturer\nl'émotion."}
+                as="h2"
+                splitBy="word"
+                stagger={0.07}
+                className="text-5xl md:text-7xl lg:text-8xl font-display font-bold leading-[0.95] tracking-tight mb-10"
+                goldWords={["capturer"]}
+                italicWords={["l'émotion."]}
+              />
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                className="grid md:grid-cols-12 gap-8"
+              >
+                <div className="md:col-span-3">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Sparkles size={14} className="text-[#C9A66B]" />
+                    <p className="text-[10px] tracking-[0.3em] uppercase text-[#C9A66B] font-semibold">
+                      Studio
+                    </p>
                   </div>
-                  <h3 className="heading-sm">{feature.title}</h3>
-                  <p className="body-md text-text-muted max-w-xs mx-auto">
-                    {feature.description}
+                  <h3 className="font-display font-semibold text-xl">MIS</h3>
+                  <p className="text-xs text-[#999] mt-1">
+                    Photographie · Réalisation
                   </p>
-                </motion.div>
-              );
-            })}
-          </motion.div>
+                </div>
+
+                <div className="md:col-span-9 space-y-5 text-base md:text-lg text-[#3a3a3a] leading-relaxed">
+                  <p className="first-letter:text-5xl first-letter:font-display first-letter:font-bold first-letter:text-[#C9A66B] first-letter:float-left first-letter:mr-3 first-letter:leading-none first-letter:mt-1">
+                    Mémoire Image &amp; Sons est un studio indépendant qui mêle rigueur technique
+                    et sensibilité artistique. Plus de 8 ans d'expérience à transformer chaque
+                    instant en œuvre durable.
+                  </p>
+                  <p>
+                    Trois univers : EHPAD &amp; institutions, broadcast d'entreprise, et
+                    particuliers. Une seule promesse : l'exception.
+                  </p>
+                </div>
+              </motion.div>
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="lg:col-span-5"
+            >
+              <div className="grid grid-cols-1 gap-px bg-[#0A0A0A]/10 rounded-3xl overflow-hidden border border-[#0A0A0A]/10">
+                {[
+                  {
+                    icon: Sparkles,
+                    title: "Direction artistique",
+                    description:
+                      "Une vision unique pour chaque projet, du brief à la livraison.",
+                  },
+                  {
+                    icon: Users,
+                    title: "Accompagnement",
+                    description:
+                      "Suivi personnalisé et conseils de A à Z pour vos productions.",
+                  },
+                  {
+                    icon: Tv,
+                    title: "Équipement broadcast",
+                    description:
+                      "Caméras 4K, plateaux mobiles, streaming professionnel.",
+                  },
+                ].map((item, index) => {
+                  const Icon = item.icon;
+                  return (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
+                      whileHover={{ backgroundColor: "#0A0A0A" }}
+                      className="group bg-white p-6 md:p-7 transition-colors duration-500"
+                    >
+                      <div className="flex items-start gap-4">
+                        <div className="w-12 h-12 rounded-2xl bg-[#FAFAFA] group-hover:bg-[#C9A66B] flex items-center justify-center flex-shrink-0 transition-all duration-500">
+                          <Icon
+                            className="text-[#C9A66B] group-hover:text-white transition-colors duration-500"
+                            size={20}
+                          />
+                        </div>
+                        <div>
+                          <h4 className="font-display font-semibold text-lg mb-1.5 group-hover:text-white transition-colors duration-500">
+                            {item.title}
+                          </h4>
+                          <p className="text-sm text-[#666] leading-relaxed group-hover:text-white/70 transition-colors duration-500">
+                            {item.description}
+                          </p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="relative py-24">
-        <div className="container mx-auto px-4">
-          <MotionCard
-            glowColor="emotion"
-            className="p-12 text-center relative overflow-hidden"
-          >
-            {/* Background Pattern */}
-            <div className="absolute inset-0 tech-grid opacity-10" />
-            
-            <div className="relative z-10 max-w-2xl mx-auto space-y-6">
-              <h2 className="heading-lg">
-                Prêt à donner vie à votre{" "}
-                <span className="text-gradient-emotion">projet</span> ?
-              </h2>
-              <p className="body-lg text-text-secondary">
-                Contactez-nous pour un devis personnalisé. Notre équipe vous
-                répond sous 48h.
+      {/* CTA final */}
+      <section className="relative py-24 bg-[#0A0A0A] text-white overflow-hidden">
+        <GradientOrbs variant="dark" />
+
+        <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid md:grid-cols-12 gap-8 items-end">
+            <div className="md:col-span-8">
+              <p className="text-[10px] tracking-[0.4em] uppercase text-[#C9A66B] font-semibold mb-4">
+                Prochaine étape
               </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-                <Button variant="emotion" size="lg" asChild>
-                  <Link href="/contact">
-                    Demander un devis gratuit
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </Button>
-                <Button variant="outline" size="lg" asChild>
-                  <Link href="tel:+33466000000">
-                    +33 (0)4 66 00 00 00
-                  </Link>
-                </Button>
-              </div>
+              <RevealText
+                text="Donnons vie à votre projet."
+                as="h2"
+                splitBy="word"
+                stagger={0.06}
+                className="text-4xl md:text-6xl lg:text-7xl font-display font-bold leading-[0.95] tracking-tight"
+                goldWords={["vie"]}
+                italicWords={["projet."]}
+              />
             </div>
-          </MotionCard>
+            <div className="md:col-span-4 flex md:justify-end items-end">
+              <Link href="/contact" className="block">
+                <MagneticButton variant="gold">
+                  <span>Démarrer un projet</span>
+                  <ArrowUpRight size={18} />
+                </MagneticButton>
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
-    </div>
+    </>
   );
 }

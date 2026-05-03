@@ -1,218 +1,193 @@
 "use client";
 
-import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import {
-  Film,
-  Mail,
-  Phone,
-  MapPin,
-  Facebook,
-  Instagram,
-  Linkedin,
-  Youtube,
-  ArrowUpRight,
-} from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Camera, ArrowUpRight, ArrowUp } from "lucide-react";
+import Marquee from "@/components/premium/Marquee";
 
-const footerLinks = {
-  services: {
-    title: "Nos Services",
+const sections = [
+  {
+    title: "Services",
     links: [
-      { label: "Institutions & EHPAD", href: "/institutions" },
-      { label: "Entreprises & TV", href: "/entreprises" },
-      { label: "Mariages & Particuliers", href: "/particuliers" },
-      { label: "Ateliers Mémoire", href: "/institutions#ateliers" },
+      { name: "Institutions / EHPAD", href: "/institutions" },
+      { name: "Entreprises / Plateaux TV", href: "/entreprises" },
+      { name: "Particuliers / Mariages", href: "/particuliers" },
+      { name: "Espace client", href: "/espace-client" },
     ],
   },
-  company: {
-    title: "L'Entreprise",
+  {
+    title: "Studio",
     links: [
-      { label: "À propos", href: "/a-propos" },
-      { label: "Notre Équipe", href: "/equipe" },
-      { label: "Partenaires", href: "/partenaires" },
-      { label: "Contact", href: "/contact" },
+      { name: "Accueil", href: "/" },
+      { name: "Contact", href: "/contact" },
+      { name: "Mentions légales", href: "/mentions-legales" },
+      { name: "CGV", href: "/cgv" },
     ],
   },
-  legal: {
-    title: "Informations Légales",
+  {
+    title: "Contact",
     links: [
-      { label: "Mentions Légales", href: "/mentions-legales" },
-      { label: "Politique de Confidentialité", href: "/confidentialite" },
-      { label: "Conditions Générales", href: "/cgv" },
-      { label: "Droit à l'Image", href: "/droit-image" },
+      { name: "contact@mis-prod.fr", href: "mailto:contact@mis-prod.fr" },
+      { name: "+33 (0)0 00 00 00 00", href: "tel:+33000000000" },
+      { name: "Nîmes · Occitanie", href: "#" },
+      { name: "Confidentialité", href: "/confidentialite" },
     ],
   },
-};
-
-const socialLinks = [
-  { icon: Facebook, href: "https://facebook.com", label: "Facebook" },
-  { icon: Instagram, href: "https://instagram.com", label: "Instagram" },
-  { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-  { icon: Youtube, href: "https://youtube.com", label: "YouTube" },
-];
-
-const partnerLogos = [
-  { name: "Région Occitanie", abbr: "OCC" },
-  { name: "Gard Tourisme", abbr: "GT" },
-  { name: "ARS Occitanie", abbr: "ARS" },
-  { name: "Culture & Santé", abbr: "C&S" },
 ];
 
 export function Footer() {
-  return (
-    <footer className="relative bg-background-secondary border-t border-white/10">
-      {/* Technical Grid Background */}
-      <div className="absolute inset-0 tech-grid opacity-30" />
+  const currentYear = new Date().getFullYear();
 
-      {/* Partners Marquee */}
-      <div className="relative border-b border-white/10 py-6 overflow-hidden">
-        <div className="container mx-auto px-4 mb-4">
-          <p className="text-xs text-text-muted uppercase tracking-wider text-center">
-            Nos Partenaires & Agréments
-          </p>
-        </div>
-        <div className="marquee-container">
-          <div className="marquee-content">
-            {[...partnerLogos, ...partnerLogos].map((partner, index) => (
-              <div
-                key={index}
-                className="flex items-center gap-3 px-6 py-2 rounded-lg bg-white/5 border border-white/10"
-              >
-                <div className="w-8 h-8 rounded bg-white/10 flex items-center justify-center text-xs font-bold text-white/60">
-                  {partner.abbr}
-                </div>
-                <span className="text-sm text-text-muted whitespace-nowrap">
-                  {partner.name}
-                </span>
+  return (
+    <footer className="relative bg-[#0A0A0A] text-white overflow-hidden">
+      <div className="border-y border-white/10 py-10 md:py-14 overflow-hidden">
+        <Marquee speed="slow">
+          {[
+            "Mémoire",
+            "·",
+            "Image",
+            "·",
+            "&",
+            "·",
+            "Sons",
+            "·",
+            "Studio",
+            "·",
+            "Nîmes",
+            "·",
+          ].map((word, i) => (
+            <span
+              key={i}
+              className={`text-5xl md:text-8xl font-display font-bold tracking-tighter ${
+                word === "·" ? "text-[#C9A66B]" : "text-white/90"
+              } ${i % 4 === 1 ? "italic font-light" : ""}`}
+            >
+              {word}
+            </span>
+          ))}
+        </Marquee>
+      </div>
+
+      <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-8 py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="lg:col-span-5"
+          >
+            <div className="mb-8">
+              <h3 className="text-5xl font-display font-bold mb-2">
+                <span className="gradient-text-gold">MIS</span>
+              </h3>
+              <p className="text-[#C9A66B] font-medium tracking-wide text-sm">
+                Mémoire Image &amp; Sons
+              </p>
+            </div>
+            <p className="text-white/60 leading-relaxed mb-8 max-w-md">
+              Studio premium de photographie et production audiovisuelle.
+              Institutions, entreprises, particuliers — taillé sur mesure.
+            </p>
+            <div className="flex items-center gap-3 text-white/80">
+              <span className="w-10 h-10 rounded-full bg-[#C9A66B]/15 flex items-center justify-center">
+                <Camera size={16} className="text-[#C9A66B]" />
+              </span>
+              <div>
+                <p className="text-sm font-medium">Studio MIS</p>
+                <p className="text-[10px] tracking-[0.3em] uppercase text-white/40">
+                  Production audiovisuelle
+                </p>
               </div>
+            </div>
+          </motion.div>
+
+          <div className="lg:col-span-7 grid grid-cols-1 md:grid-cols-3 gap-8">
+            {sections.map((section, index) => (
+              <motion.div
+                key={section.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 + index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <h4 className="text-[10px] tracking-[0.3em] uppercase text-[#C9A66B] font-semibold mb-5">
+                  {section.title}
+                </h4>
+                <ul className="space-y-3">
+                  {section.links.map((link, linkIndex) => (
+                    <li key={linkIndex}>
+                      <Link
+                        href={link.href}
+                        className="group inline-flex items-center gap-2 text-white/70 hover:text-white transition-colors duration-300 text-sm link-underline"
+                      >
+                        {link.name}
+                        <ArrowUpRight
+                          size={12}
+                          className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-[#C9A66B]"
+                        />
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
             ))}
           </div>
         </div>
-      </div>
 
-      {/* Main Footer Content */}
-      <div className="relative container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
-          {/* Brand Column */}
-          <div className="lg:col-span-2 space-y-6">
-            <Link href="/" className="flex items-center gap-3 group">
-              <motion.div
-                className="w-12 h-12 rounded-xl bg-gradient-emotion flex items-center justify-center group-hover:shadow-glow-emotion transition-shadow duration-300"
-                whileHover={{ scale: 1.05 }}
-              >
-                <Film className="w-6 h-6 text-white" />
-              </motion.div>
-              <div>
-                <span className="font-heading text-xl font-bold text-white">
-                  Mémoire
-                </span>
-                <span className="font-heading text-xl font-light text-text-muted ml-1">
-                  Image & Sons
-                </span>
-              </div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          viewport={{ once: true }}
+          className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
+        >
+          <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-6 text-xs text-white/40">
+            <span>© {currentYear} MIS — Mémoire Image &amp; Sons</span>
+            <span className="hidden md:inline text-white/20">·</span>
+            <span>Tous droits réservés</span>
+          </div>
+
+          <div className="flex items-center gap-6 text-xs text-white/40">
+            <Link
+              href="/mentions-legales"
+              className="hover:text-[#C9A66B] transition-colors link-underline"
+            >
+              Mentions légales
             </Link>
-
-            <p className="text-text-secondary max-w-sm leading-relaxed">
-              Capturer l&apos;Instant, Diffuser l&apos;Expertise, Réveiller la Mémoire.
-              Production vidéo professionnelle pour institutions, entreprises et
-              particuliers.
-            </p>
-
-            {/* Contact Info */}
-            <div className="space-y-3">
-              <a
-                href="tel:+33466000000"
-                className="flex items-center gap-3 text-text-muted hover:text-white transition-colors group"
-              >
-                <Phone className="w-4 h-4 text-emotion group-hover:text-emotion-light" />
-                <span>+33 (0)4 66 00 00 00</span>
-              </a>
-              <a
-                href="mailto:contact@memoire-is.fr"
-                className="flex items-center gap-3 text-text-muted hover:text-white transition-colors group"
-              >
-                <Mail className="w-4 h-4 text-emotion group-hover:text-emotion-light" />
-                <span>contact@memoire-is.fr</span>
-              </a>
-              <div className="flex items-center gap-3 text-text-muted">
-                <MapPin className="w-4 h-4 text-emotion" />
-                <span>Nîmes, Gard - Occitanie</span>
-              </div>
-            </div>
-
-            {/* Social Links */}
-            <div className="flex items-center gap-3 pt-2">
-              {socialLinks.map((social) => {
-                const Icon = social.icon;
-                return (
-                  <motion.a
-                    key={social.label}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-text-muted hover:text-white hover:bg-white/10 hover:border-white/20 transition-all duration-300"
-                    whileHover={{ scale: 1.1, y: -2 }}
-                    whileTap={{ scale: 0.95 }}
-                    aria-label={social.label}
-                  >
-                    <Icon className="w-4 h-4" />
-                  </motion.a>
-                );
-              })}
-            </div>
+            <span className="text-white/20">·</span>
+            <Link
+              href="/confidentialite"
+              className="hover:text-[#C9A66B] transition-colors link-underline"
+            >
+              Confidentialité
+            </Link>
+            <span className="text-white/20">·</span>
+            <Link
+              href="/droit-image"
+              className="hover:text-[#C9A66B] transition-colors link-underline"
+            >
+              Droit à l'image
+            </Link>
           </div>
 
-          {/* Links Columns */}
-          {Object.entries(footerLinks).map(([key, section]) => (
-            <div key={key} className="space-y-4">
-              <h4 className="font-heading font-semibold text-white">
-                {section.title}
-              </h4>
-              <ul className="space-y-3">
-                {section.links.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="text-text-muted hover:text-white transition-colors inline-flex items-center gap-1 group"
-                    >
-                      {link.label}
-                      <ArrowUpRight className="w-3 h-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
+          <button
+            onClick={() =>
+              window.scrollTo({ top: 0, behavior: "smooth" })
+            }
+            className="group inline-flex items-center gap-3 text-xs tracking-[0.3em] uppercase text-white/60 hover:text-[#C9A66B] transition-colors"
+            aria-label="Retour en haut"
+          >
+            <span>Haut de page</span>
+            <span className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center group-hover:border-[#C9A66B] group-hover:bg-[#C9A66B] transition-all duration-300">
+              <ArrowUp
+                size={14}
+                className="text-white group-hover:text-[#0A0A0A] transition-colors"
+              />
+            </span>
+          </button>
+        </motion.div>
       </div>
-
-      {/* Bottom Bar */}
-      <div className="relative border-t border-white/10">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-text-muted">
-            <p>
-              © {new Date().getFullYear()} Mémoire Image & Sons. Tous droits
-              réservés.
-            </p>
-            <div className="flex items-center gap-6">
-              <span className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-success animate-pulse" />
-                Disponible pour vos projets
-              </span>
-              <span className="text-white/30">|</span>
-              <span>SIRET: 000 000 000 00000</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Corner Crosshairs */}
-      <div className="absolute top-4 left-4 text-white/10 text-xs">+</div>
-      <div className="absolute top-4 right-4 text-white/10 text-xs">+</div>
-      <div className="absolute bottom-4 left-4 text-white/10 text-xs">+</div>
-      <div className="absolute bottom-4 right-4 text-white/10 text-xs">+</div>
     </footer>
   );
 }

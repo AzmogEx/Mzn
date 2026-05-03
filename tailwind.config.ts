@@ -10,56 +10,72 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Deep Space Dark Mode Palette
+        // MIS Premium Editorial Palette
         background: {
-          DEFAULT: "#0F1115",
-          secondary: "#161920",
+          DEFAULT: "#FAFAFA",
+          secondary: "#F4EFE6",
         },
-        surface: {
-          DEFAULT: "rgba(0, 0, 0, 0.6)",
-          border: "rgba(255, 255, 255, 0.1)",
+        bone: "#FAFAFA",
+        ink: {
+          DEFAULT: "#0A0A0A",
+          soft: "#1a1a1a",
         },
-        // Accent Colors
+        gold: {
+          DEFAULT: "#C9A66B",
+          light: "#E5D3A8",
+          deep: "#B8956B",
+          dark: "#9C7E4A",
+          glow: "rgba(201, 166, 107, 0.45)",
+        },
+        // Aliases that previously powered "corporate" (blue) and "emotion" (violet)
+        // are remapped to the editorial gold/ink palette so legacy classes still work.
         corporate: {
-          DEFAULT: "#3B82F6",
-          light: "#60A5FA",
-          dark: "#2563EB",
-          glow: "rgba(59, 130, 246, 0.4)",
+          DEFAULT: "#0A0A0A",
+          light: "#1a1a1a",
+          dark: "#000000",
+          glow: "rgba(10, 10, 10, 0.35)",
         },
         emotion: {
-          DEFAULT: "#8B5CF6",
-          light: "#A78BFA",
-          dark: "#7C3AED",
-          rose: "#EC4899",
-          glow: "rgba(139, 92, 246, 0.4)",
+          DEFAULT: "#C9A66B",
+          light: "#E5D3A8",
+          dark: "#B8956B",
+          rose: "#C9A66B",
+          glow: "rgba(201, 166, 107, 0.45)",
         },
-        // Text Colors
+        surface: {
+          DEFAULT: "rgba(255, 255, 255, 0.55)",
+          border: "rgba(10, 10, 10, 0.08)",
+        },
         text: {
-          primary: "#FFFFFF",
-          secondary: "#E5E7EB",
-          muted: "#9CA3AF",
+          primary: "#0A0A0A",
+          secondary: "#3a3a3a",
+          muted: "#666666",
         },
-        // Utility
         rec: "#EF4444",
         success: "#10B981",
       },
       fontFamily: {
-        heading: ["var(--font-syne)", "sans-serif"],
+        heading: ["var(--font-syne)", "var(--font-montserrat)", "sans-serif"],
+        display: ["var(--font-syne)", "var(--font-montserrat)", "sans-serif"],
         body: ["var(--font-inter)", "sans-serif"],
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-        "gradient-corporate": "linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)",
-        "gradient-emotion": "linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)",
-        "gradient-mixed": "linear-gradient(135deg, #EC4899 0%, #8B5CF6 100%)",
+        "gradient-gold": "linear-gradient(135deg, #C9A66B 0%, #B8956B 100%)",
+        "gradient-gold-soft": "linear-gradient(135deg, #E5D3A8 0%, #C9A66B 100%)",
+        // Backwards-compat: corporate / emotion / mixed remapped to gold/ink
+        "gradient-corporate": "linear-gradient(135deg, #0A0A0A 0%, #1a1a1a 100%)",
+        "gradient-emotion": "linear-gradient(135deg, #C9A66B 0%, #B8956B 100%)",
+        "gradient-mixed": "linear-gradient(135deg, #E5D3A8 0%, #C9A66B 100%)",
       },
       boxShadow: {
-        glass: "0 8px 32px 0 rgba(0, 0, 0, 0.37)",
-        "glow-corporate": "0 0 40px rgba(59, 130, 246, 0.3)",
-        "glow-emotion": "0 0 40px rgba(139, 92, 246, 0.3)",
-        "glow-rose": "0 0 40px rgba(236, 72, 153, 0.3)",
+        glass: "0 8px 32px 0 rgba(10, 10, 10, 0.08)",
+        "glow-gold": "0 0 40px rgba(201, 166, 107, 0.35)",
+        "glow-corporate": "0 18px 50px -12px rgba(10, 10, 10, 0.45)",
+        "glow-emotion": "0 18px 50px -12px rgba(201, 166, 107, 0.55)",
+        "glow-rose": "0 0 40px rgba(201, 166, 107, 0.35)",
       },
       backdropBlur: {
         glass: "16px",
@@ -95,8 +111,8 @@ const config: Config = {
           "100%": { transform: "translateX(-50%)" },
         },
         glow: {
-          "0%": { boxShadow: "0 0 20px rgba(139, 92, 246, 0.2)" },
-          "100%": { boxShadow: "0 0 40px rgba(139, 92, 246, 0.4)" },
+          "0%": { boxShadow: "0 0 20px rgba(201, 166, 107, 0.2)" },
+          "100%": { boxShadow: "0 0 40px rgba(201, 166, 107, 0.4)" },
         },
       },
     },
