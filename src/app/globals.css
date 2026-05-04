@@ -1,0 +1,242 @@
+@import "tailwindcss";
+
+/* =========================================================
+   MZN — Design tokens (Dark mode permanent)
+   Palette : noir profond / ivoire / or champagne
+   ========================================================= */
+:root {
+  /* Surfaces */
+  --background: #050505;
+  --background-elevated: #0c0c0c;
+  --background-subtle: #111111;
+
+  /* Texte */
+  --foreground: #f5f3ee;
+  --foreground-muted: #a8a39a;
+  --foreground-subtle: #6b665e;
+
+  /* Accent or champagne (subtil, métallique) */
+  --gold: #c9a961;
+  --gold-bright: #e6c989;
+  --gold-deep: #8a7340;
+
+  /* Lignes / bordures */
+  --border: rgba(245, 243, 238, 0.08);
+  --border-strong: rgba(245, 243, 238, 0.16);
+
+  /* Glassmorphism */
+  --glass-bg: rgba(10, 10, 10, 0.6);
+  --glass-border: rgba(245, 243, 238, 0.06);
+
+  /* Easings premium */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-background-elevated: var(--background-elevated);
+  --color-background-subtle: var(--background-subtle);
+  --color-foreground: var(--foreground);
+  --color-foreground-muted: var(--foreground-muted);
+  --color-foreground-subtle: var(--foreground-subtle);
+  --color-gold: var(--gold);
+  --color-gold-bright: var(--gold-bright);
+  --color-gold-deep: var(--gold-deep);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+
+  --font-sans: var(--font-sans-display);
+  --font-serif: var(--font-serif-display);
+  --font-mono: var(--font-mono-display);
+}
+
+/* =========================================================
+   Reset / base
+   ========================================================= */
+* {
+  border-color: var(--border);
+}
+
+html {
+  background: var(--background);
+  color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans-display), system-ui, -apple-system, sans-serif;
+  font-feature-settings: "ss01", "cv11";
+  overflow-x: hidden;
+}
+
+/* Selection premium */
+::selection {
+  background: var(--gold);
+  color: #050505;
+}
+
+/* Scrollbar discrète */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(245, 243, 238, 0.08);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(245, 243, 238, 0.18);
+}
+
+/* =========================================================
+   Lenis smooth scroll
+   ========================================================= */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* =========================================================
+   Utilitaires premium
+   ========================================================= */
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility text-pretty {
+  text-wrap: pretty;
+}
+
+/* Glassmorphism subtil */
+@utility glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid var(--glass-border);
+}
+
+/* Texte gradient or */
+@utility text-gold-gradient {
+  background: linear-gradient(
+    135deg,
+    var(--gold-bright) 0%,
+    var(--gold) 50%,
+    var(--gold-deep) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Ligne or fine décorative */
+@utility hairline-gold {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--gold) 50%,
+    transparent 100%
+  );
+}
+
+/* Masquer la scrollbar (Webkit + Firefox + IE/Edge) */
+@utility scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* =========================================================
+   Typographie des pages légales / éditoriales
+   ========================================================= */
+.prose-legal {
+  color: var(--foreground-muted);
+  font-family: var(--font-sans-display), system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.75;
+}
+.prose-legal h2 {
+  font-family: var(--font-serif-display), serif;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--foreground);
+  margin-top: 4rem;
+  margin-bottom: 1.5rem;
+}
+.prose-legal h2:first-child {
+  margin-top: 0;
+}
+.prose-legal h3 {
+  font-family: var(--font-sans-display), sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  color: var(--foreground);
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+.prose-legal p {
+  margin-bottom: 1.25rem;
+  text-wrap: pretty;
+}
+.prose-legal a {
+  color: var(--gold);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+  transition: color 0.3s;
+}
+.prose-legal a:hover {
+  color: var(--gold-bright);
+}
+.prose-legal strong {
+  color: var(--foreground);
+  font-weight: 500;
+}
+.prose-legal ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 1.25rem 0;
+}
+.prose-legal ul li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.prose-legal ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: 0.75rem;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.6;
+}
+.prose-legal hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 3rem 0;
+}
