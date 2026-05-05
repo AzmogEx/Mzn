@@ -124,7 +124,7 @@ export function EquipmentSection() {
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             className="font-mono text-[10px] uppercase tracking-[0.4em] text-foreground-subtle md:col-span-3"
           >
-            (05) — Expertise broadcast
+            (07) — Expertise broadcast
           </motion.p>
 
           <h2

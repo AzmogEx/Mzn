@@ -6,9 +6,10 @@ import { cn } from "@/lib/utils";
 
 /* ---------------------------------------------------------------
    Reveal mot par mot, avec overflow-hidden + translate-y.
-   Accepte du JSX (ex : <em>) — on splite uniquement les nœuds
-   string, pour préserver l'italique typographique sur certains
-   mots-clés du slogan.
+   Accepte du JSX (ex : <em>) — chaque mot est extrait avec son
+   espace de fin (matérialisé par un nbsp) inclus dans le texte
+   du AnimatedWord, pour préserver l'espacement entre inline-blocks
+   (sinon collapsé visuellement par le navigateur).
    --------------------------------------------------------------- */
 
 type RevealTextProps = {
@@ -43,41 +44,53 @@ const wordVariants: Variants = {
   },
 };
 
-/** Tokenise un nœud React en suite de "mots animables" + JSX préservé. */
-function tokenize(node: ReactNode): ReactNode[] {
-  const tokens: ReactNode[] = [];
-  let key = 0;
+type Word = { text: string; italic: boolean };
+
+const NBSP = "\u00A0";
+
+/** Aplatit un nœud React en suite de "mots". Chaque mot porte son
+ *  espace de fin (nbsp) à l'intérieur — c'est cet espace qui sera
+ *  rendu visiblement. */
+function flatten(node: ReactNode, italic = false): Word[] {
+  const words: Word[] = [];
 
   Children.forEach(node, (child) => {
     if (typeof child === "string") {
-      const words = child.split(/(\s+)/);
-      for (const word of words) {
-        if (word.trim().length === 0) {
-          tokens.push(word);
+      const parts = child.match(/\S+|\s+/g) ?? [];
+      for (const part of parts) {
+        if (/^\s+$/.test(part)) {
+          if (words.length > 0) {
+            words[words.length - 1].text += NBSP;
+          } else {
+            words.push({ text: NBSP, italic });
+          }
         } else {
-          tokens.push(<AnimatedWord key={key++}>{word}</AnimatedWord>);
+          words.push({ text: part, italic });
         }
       }
-    } else if (isValidElement<{ children?: ReactNode }>(child)) {
-      const innerTokens = tokenize(child.props.children);
-      tokens.push(
-        <span key={key++} className={(child.props as { className?: string }).className}>
-          {innerTokens}
-        </span>,
-      );
-    } else if (child !== null && child !== undefined) {
-      tokens.push(child);
+    } else if (
+      isValidElement<{ children?: ReactNode; className?: string }>(child)
+    ) {
+      const isItalic =
+        italic || /\bitalic\b/.test(child.props.className ?? "");
+      words.push(...flatten(child.props.children, isItalic));
     }
   });
 
-  return tokens;
+  return words;
 }
 
-function AnimatedWord({ children }: { children: ReactNode }) {
+function AnimatedWord({ text, italic }: { text: string; italic: boolean }) {
   return (
     <span className="inline-block overflow-hidden align-bottom leading-[1.1]">
-      <motion.span variants={wordVariants} className="inline-block will-change-transform">
-        {children}
+      <motion.span
+        variants={wordVariants}
+        className={cn(
+          "inline-block will-change-transform",
+          italic && "italic",
+        )}
+      >
+        {text}
       </motion.span>
     </span>
   );
@@ -97,7 +110,7 @@ export function RevealText({
     return <Tag className={className}>{children}</Tag>;
   }
 
-  const tokens = tokenize(children);
+  const words = flatten(children);
   const MotionTag = motion[Tag] as typeof motion.span;
 
   return (
@@ -110,7 +123,9 @@ export function RevealText({
         ? { animate: "visible" }
         : { whileInView: "visible", viewport: { once: true, amount: 0.3 } })}
     >
-      {tokens}
+      {words.map((w, i) => (
+        <AnimatedWord key={i} text={w.text} italic={w.italic} />
+      ))}
     </MotionTag>
   );
 }

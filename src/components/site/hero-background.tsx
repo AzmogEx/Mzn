@@ -52,17 +52,17 @@ export function HeroBackground({ videoSrc }: { videoSrc?: string }) {
         )}
       </motion.div>
 
-      {/* Couche 2 — vignettage radial cinéma */}
+      {/* Couche 2 — vignettage radial cinéma (allégé pour laisser respirer la vidéo) */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse at center, transparent 0%, transparent 40%, rgba(5,5,5,0.65) 80%, rgba(5,5,5,0.95) 100%)",
+            "radial-gradient(ellipse at center, transparent 0%, transparent 45%, rgba(5,5,5,0.55) 80%, rgba(5,5,5,0.88) 100%)",
         }}
       />
 
-      {/* Couche 3 — voile sombre + dégradé bas pour lisibilité texte */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/40 to-background" />
+      {/* Couche 3 — dégradé sombre haut (nav) + bas (CTA / timecode), milieu transparent */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/55 via-background/15 to-background/90" />
 
       {/* Couche 4 — grain SVG très discret */}
       <div className="pointer-events-none absolute inset-0 opacity-[0.06] mix-blend-overlay">

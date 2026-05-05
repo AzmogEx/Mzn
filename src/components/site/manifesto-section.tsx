@@ -95,7 +95,7 @@ export function ManifestoSection() {
             >
               D
             </span>
-            epuis 2017, MZN refuse l&apos;image jetable. Chaque film, chaque
+            epuis 2017, MIS refuse l&apos;image jetable. Chaque film, chaque
             captation, chaque atelier est conçu comme une pièce qui doit tenir
             dans dix ans, vingt ans. Parce qu&apos;une mémoire qu&apos;on filme
             n&apos;a pas le droit d&apos;être approximative.

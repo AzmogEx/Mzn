@@ -36,11 +36,11 @@ export function Navbar() {
         {/* Logo / wordmark */}
         <Link
           href="/"
-          aria-label="MZN Studio — accueil"
+          aria-label="MIS — Mémoire Image Son · accueil"
           className="group flex items-center gap-3"
         >
           <span className="font-serif text-2xl tracking-[0.18em] text-foreground transition-colors group-hover:text-gold">
-            MZN
+            MIS
           </span>
           <span className="hidden h-3 w-px bg-foreground-subtle/50 md:block" />
           <span className="hidden font-mono text-[10px] uppercase tracking-[0.32em] text-foreground-subtle md:block">

@@ -5,7 +5,7 @@ import { SITE } from "@/data/site";
 export const metadata: Metadata = {
   title: "Politique de confidentialité",
   description:
-    "Comment MZN Studio collecte, traite et protège vos données personnelles.",
+    "Comment MIS (Mémoire Image Son) collecte, traite et protège vos données personnelles.",
 };
 
 export default function ConfidentialitePage() {
@@ -17,7 +17,7 @@ export default function ConfidentialitePage() {
       lastUpdate="Mai 2026"
     >
       <p>
-        MZN Studio attache une importance particulière au respect de la vie
+        MIS attache une importance particulière au respect de la vie
         privée de ses interlocuteurs. La présente politique décrit la manière
         dont nous collectons, traitons, conservons et protégeons vos données
         personnelles, conformément au Règlement Général sur la Protection des

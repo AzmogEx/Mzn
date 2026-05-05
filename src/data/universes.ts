@@ -1,5 +1,5 @@
 /**
- * Données des 3 univers MZN.
+ * Données des 3 univers MIS.
  * Centralisées ici — utilisées par UniversesSection (preview homepage),
  * UniversePageLayout (template page dédiée) et le contact form.
  */
@@ -60,7 +60,7 @@ export const UNIVERSES: Record<UniverseSlug, Universe> = {
     pitch:
       "L'image comme outil thérapeutique, comme trace, comme transmission.",
     intro:
-      "Depuis 2017, MZN accompagne les institutions de santé et les collectivités dans la création de contenus à forte valeur humaine. Ateliers mémoire pour résidents d'EHPAD, documentaires de vie, captations d'événements internes : nous filmons avec la pudeur et la précision qu'exigent ces contextes.",
+      "Depuis 2017, MIS accompagne les institutions de santé et les collectivités dans la création de contenus à forte valeur humaine. Ateliers mémoire pour résidents d'EHPAD, documentaires de vie, captations d'événements internes : nous filmons avec la pudeur et la précision qu'exigent ces contextes.",
     ambiance: "warm",
     formulas: [
       {
@@ -131,7 +131,7 @@ export const UNIVERSES: Record<UniverseSlug, Universe> = {
     pitch:
       "Plateaux TV mobiles, streaming 4K, multi-caméras. La régie pro qui se déplace.",
     intro:
-      "Quand votre événement n'a pas le droit d'avoir un plan B, MZN devient votre régie broadcast itinérante. ATEM, LiveU, Canon EOS R5, micros Sennheiser : nous transformons une salle, un parking, un parc en plateau de diffusion 4K. Latence sub-seconde, redondance complète.",
+      "Quand votre événement n'a pas le droit d'avoir un plan B, MIS devient votre régie broadcast itinérante. ATEM, LiveU, Canon EOS R5, micros Sennheiser : nous transformons une salle, un parking, un parc en plateau de diffusion 4K. Latence sub-seconde, redondance complète.",
     ambiance: "cold",
     formulas: [
       {
@@ -213,7 +213,7 @@ export const UNIVERSES: Record<UniverseSlug, Universe> = {
     pitch:
       "Mariages cinématographiques, biographies vidéo, héritage filmé.",
     intro:
-      "Un mariage, une biographie, un événement familial : ces instants méritent un regard de cinéma, pas un compte-rendu. MZN aborde chaque film personnel avec la même rigueur qu'un documentaire — repérage, écriture, étalonnage. Pour que vos enfants, et leurs enfants, regardent encore.",
+      "Un mariage, une biographie, un événement familial : ces instants méritent un regard de cinéma, pas un compte-rendu. MIS aborde chaque film personnel avec la même rigueur qu'un documentaire — repérage, écriture, étalonnage. Pour que vos enfants, et leurs enfants, regardent encore.",
     ambiance: "champagne",
     formulas: [
       {

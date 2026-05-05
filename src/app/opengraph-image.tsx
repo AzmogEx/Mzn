@@ -84,7 +84,7 @@ export default function OpenGraphImage() {
               lineHeight: 1,
             }}
           >
-            MZN
+            MIS
           </span>
           <span
             style={{

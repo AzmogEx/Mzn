@@ -3,20 +3,23 @@
 import { motion } from "motion/react";
 import Link from "next/link";
 import { ArrowDown } from "lucide-react";
+import { useEffect, useState } from "react";
 import { HeroBackground } from "@/components/site/hero-background";
 import { RevealText } from "@/components/motion/reveal-text";
 import { SITE } from "@/data/site";
 
 /* ---------------------------------------------------------------
-   Hero — 100vh, slogan sur 3 lignes en serif, animation séquencée :
-   1. Eyebrow (ligne or + label) à 0.3s
-   2. Slogan ligne 1 à 0.8s
-   3. Slogan ligne 2 à 1.4s
-   4. Slogan ligne 3 à 2.0s
-   5. CTA + scroll indicator à 2.8s
+   Hero — 100vh, slogan sur 3 lignes en serif, animation séquencée
+   accélérée (gain ~1s sur la version précédente) :
+     1. Eyebrow à 0.15s
+     2. Slogan ligne 1 à 0.4s
+     3. Slogan ligne 2 à 0.85s
+     4. Slogan ligne 3 à 1.3s
+     5. CTA + scroll indicator à 1.8s
 
-   La vidéo de fond est pilotée depuis SITE.hero.videoUrl (fallback
-   gradient si absente).
+   En signature broadcast : timecode mono live en bas à gauche,
+   indicateur REC pulsé à droite. Ces détails posent l'univers
+   "régie TV" sans crier.
    --------------------------------------------------------------- */
 
 export function HeroSection() {
@@ -29,7 +32,7 @@ export function HeroSection() {
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
           className="mb-10 flex items-center gap-4 md:mb-14"
         >
           <span className="h-px w-12 bg-gold md:w-20" />
@@ -40,16 +43,18 @@ export function HeroSection() {
 
         {/* Slogan — 3 lignes serif, italique sur les verbes */}
         <h1 className="font-serif text-balance text-[clamp(2.75rem,8vw,7.5rem)] font-normal leading-[1.02] tracking-[-0.02em] text-foreground">
-          <RevealText as="span" delay={0.8} stagger={0.07} className="block">
-            <em className="italic">Capturer</em> l&apos;instant,
+          <RevealText as="span" delay={0.4} stagger={0.06} className="block">
+            <em className="italic">Capturer</em>
+            {" l’instant,"}
           </RevealText>
-          <RevealText as="span" delay={1.4} stagger={0.07} className="block">
-            <em className="italic">diffuser</em> l&apos;expertise,
+          <RevealText as="span" delay={0.85} stagger={0.06} className="block">
+            <em className="italic">diffuser</em>
+            {" l’expertise,"}
           </RevealText>
           <RevealText
             as="span"
-            delay={2.0}
-            stagger={0.07}
+            delay={1.3}
+            stagger={0.06}
             className="block text-foreground-muted"
           >
             <em className="italic text-foreground">réveiller</em> la mémoire.
@@ -60,37 +65,67 @@ export function HeroSection() {
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 2.8 }}
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 1.8 }}
           className="mt-14 flex flex-col items-start gap-8 md:mt-20 md:flex-row md:items-center md:justify-between"
         >
           <div className="flex items-center gap-6">
             <Link
-              href="#univers"
+              href="#realisations"
               className="group relative inline-flex h-14 items-center gap-3 overflow-hidden rounded-full border border-border-strong bg-foreground/[0.02] px-7 font-mono text-[11px] uppercase tracking-[0.28em] text-foreground backdrop-blur-md transition-all duration-700 hover:border-gold hover:bg-gold/[0.08] hover:text-gold"
             >
-              <span className="relative z-10">Découvrir nos univers</span>
+              <span className="relative z-10">Voir le showreel</span>
               <span className="relative z-10 transition-transform duration-500 group-hover:translate-x-1">
                 →
               </span>
               {/* glow gold au hover */}
               <span className="absolute inset-0 -z-0 opacity-0 blur-xl transition-opacity duration-700 group-hover:opacity-100 bg-gold/30" />
             </Link>
+
+            <Link
+              href="#univers"
+              className="group hidden items-center gap-2 font-mono text-[11px] uppercase tracking-[0.28em] text-foreground-muted transition-colors hover:text-foreground md:inline-flex"
+            >
+              <span className="h-px w-6 bg-foreground-muted/40 transition-all duration-500 group-hover:w-12 group-hover:bg-gold" />
+              <span>Nos univers</span>
+            </Link>
           </div>
 
           <ScrollIndicator />
         </motion.div>
 
-        {/* Coin droit haut — petite signature mono */}
+        {/* Coin droit haut — REC broadcast indicator */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1.4, delay: 0.5 }}
-          className="absolute right-6 top-32 hidden flex-col items-end gap-2 md:right-10 md:flex"
+          transition={{ duration: 1, delay: 0.3 }}
+          className="absolute right-6 top-32 hidden flex-col items-end gap-3 md:right-10 md:flex"
         >
+          <div className="flex items-center gap-2.5">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold/60 opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-gold" />
+            </span>
+            <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-foreground/80">
+              On Air
+            </span>
+          </div>
+          <span className="h-8 w-px bg-foreground-subtle/30" />
           <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-foreground-subtle">
             (01) — Studio
           </span>
-          <span className="h-8 w-px bg-foreground-subtle/30" />
+        </motion.div>
+
+        {/* Coin gauche bas — timecode broadcast live */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 2.1 }}
+          className="absolute bottom-8 left-6 hidden items-center gap-3 md:left-10 md:flex"
+        >
+          <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-foreground-subtle">
+            Live ·
+          </span>
+          <Timecode />
         </motion.div>
       </div>
     </section>
@@ -111,5 +146,35 @@ function ScrollIndicator() {
         <ArrowDown className="h-3 w-3" strokeWidth={1.25} />
       </motion.span>
     </div>
+  );
+}
+
+/**
+ * Timecode broadcast HH:MM:SS:FF (FF = frame, 24fps).
+ * Mis à jour 4× par seconde côté client uniquement (perf).
+ * Initialisé à null pour éviter le mismatch SSR.
+ */
+function Timecode() {
+  const [tc, setTc] = useState<string | null>(null);
+
+  useEffect(() => {
+    const update = () => {
+      const now = new Date();
+      const hh = String(now.getHours()).padStart(2, "0");
+      const mm = String(now.getMinutes()).padStart(2, "0");
+      const ss = String(now.getSeconds()).padStart(2, "0");
+      // Frame approximative (24fps) basée sur les ms
+      const ff = String(Math.floor((now.getMilliseconds() / 1000) * 24)).padStart(2, "0");
+      setTc(`${hh}:${mm}:${ss}:${ff}`);
+    };
+    update();
+    const id = window.setInterval(update, 250);
+    return () => window.clearInterval(id);
+  }, []);
+
+  return (
+    <span className="font-mono text-[10px] tabular-nums tracking-[0.18em] text-gold/80">
+      {tc ?? "00:00:00:00"}
+    </span>
   );
 }

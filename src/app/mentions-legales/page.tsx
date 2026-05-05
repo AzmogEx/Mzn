@@ -5,7 +5,7 @@ import { SITE } from "@/data/site";
 export const metadata: Metadata = {
   title: "Mentions légales",
   description:
-    "Mentions légales du studio MZN — éditeur, hébergeur, propriété intellectuelle.",
+    "Mentions légales du studio MIS — éditeur, hébergeur, propriété intellectuelle.",
 };
 
 export default function MentionsLegalesPage() {

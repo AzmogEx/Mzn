@@ -93,7 +93,7 @@ function buildHtmlEmail(p: Payload): string {
   const message = escapeHtml(p.message ?? "").replace(/\n/g, "<br/>");
   return `
     <div style="font-family:-apple-system,sans-serif;max-width:600px;margin:0 auto;color:#111;">
-      <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.24em;color:#c9a961;margin:0 0 8px;">MZN Studio — Brief projet</p>
+      <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.24em;color:#c9a961;margin:0 0 8px;">MIS — Brief projet</p>
       <h1 style="font-family:Georgia,serif;font-size:28px;margin:0 0 24px;">Nouveau brief reçu</h1>
       <table style="width:100%;border-collapse:collapse;margin-bottom:24px;">${rows}</table>
       <div style="border-top:1px solid #eee;padding-top:16px;">
@@ -140,9 +140,9 @@ export async function POST(req: Request) {
   }
 
   const apiKey = process.env.RESEND_API_KEY;
-  const recipient = process.env.CONTACT_RECIPIENT ?? "contact@mzn-studio.fr";
+  const recipient = process.env.CONTACT_RECIPIENT ?? "contact@mis-prod.fr";
   const sender =
-    process.env.CONTACT_SENDER ?? "MZN Studio <onboarding@resend.dev>";
+    process.env.CONTACT_SENDER ?? "MIS <onboarding@resend.dev>";
 
   // Mode dev / pas de clé → on logue et on répond OK
   if (!apiKey) {
@@ -163,7 +163,7 @@ export async function POST(req: Request) {
         from: sender,
         to: recipient,
         reply_to: payload.email,
-        subject: `[MZN] Brief ${payload.universe} — ${payload.name}`,
+        subject: `[MIS] Brief ${payload.universe} — ${payload.name}`,
         html: buildHtmlEmail(payload),
       }),
     });

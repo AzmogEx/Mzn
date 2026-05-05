@@ -38,7 +38,7 @@ export function CtaSection() {
         >
           <span className="h-px w-12 bg-gold md:w-20" />
           <span className="font-mono text-[10px] uppercase tracking-[0.32em] text-gold">
-            (06) — Brief projet
+            (08) — Brief projet
           </span>
         </motion.div>
 

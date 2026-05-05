@@ -15,6 +15,7 @@ const NAV_COLUMNS = [
     label: "Studio",
     links: [
       { href: "/#manifeste", label: "Manifeste" },
+      { href: "/#realisations", label: "Réalisations" },
       { href: "/#expertise", label: "Expertise" },
       { href: "/contact", label: "Contact" },
     ],
@@ -43,9 +44,12 @@ export function Footer() {
         <div className="grid gap-16 md:grid-cols-12 md:gap-10">
           {/* Wordmark + signature */}
           <div className="md:col-span-5">
-            <Link href="/" className="group inline-block" aria-label="Accueil MZN">
+            <Link href="/" className="group inline-block" aria-label="Accueil MIS — Mémoire Image Son">
               <span className="block font-serif text-[clamp(3rem,9vw,7rem)] leading-none tracking-[-0.02em] text-foreground transition-colors group-hover:text-gold">
-                MZN
+                MIS
+              </span>
+              <span className="mt-3 block font-mono text-[10px] uppercase tracking-[0.32em] text-foreground-subtle">
+                Mémoire · Image · Son
               </span>
             </Link>
             <p className="mt-8 max-w-md font-serif text-xl italic leading-snug text-foreground-muted">

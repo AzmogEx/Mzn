@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* =========================================================
-   MZN — Design tokens (Dark mode permanent)
+   MIS — Design tokens (Dark mode permanent)
    Palette : noir profond / ivoire / or champagne
    ========================================================= */
 :root {
@@ -164,6 +164,26 @@ html.lenis body {
   -ms-overflow-style: none;
   &::-webkit-scrollbar {
     display: none;
+  }
+}
+
+/* Marquee horizontal infini — boucle parfaite via translateX(-50%) */
+@keyframes marquee-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@utility animate-marquee {
+  animation: marquee-x 50s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
   }
 }
 

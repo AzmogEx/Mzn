@@ -8,16 +8,17 @@
 
 export const SITE = {
   /* ------------ Identité ------------ */
-  name: "MZN Studio",
+  name: "MIS",
+  fullName: "Mémoire Image Son",
   tagline:
     "Capter l'instant, diffuser l'expertise, réveiller la mémoire.",
   city: "Nîmes",
   foundedYear: 2017,
   /* URL canonique — surchargée par NEXT_PUBLIC_SITE_URL en prod */
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://mzn-studio.fr",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://mis-studio.fr",
 
   /* ------------ Contact ------------ */
-  email: "contact@mzn-studio.fr",
+  email: "contact@mis-prod.fr",
   phone: "+33 (0)0 00 00 00 00", // [À COMPLÉTER]
   phoneE164: "+33000000000", // [À COMPLÉTER] format href tel:
   address: {

@@ -97,7 +97,7 @@ export function ContactForm() {
       if (!res.ok || !data.ok) {
         setErrorMessage(
           data.error ??
-            "Une erreur est survenue. Vous pouvez nous écrire directement à contact@mzn-studio.fr.",
+            "Une erreur est survenue. Vous pouvez nous écrire directement à contact@mis-prod.fr.",
         );
         setStatus("error");
         return;
@@ -105,7 +105,7 @@ export function ContactForm() {
       setStatus("success");
     } catch {
       setErrorMessage(
-        "Erreur réseau. Vous pouvez nous écrire directement à contact@mzn-studio.fr.",
+        "Erreur réseau. Vous pouvez nous écrire directement à contact@mis-prod.fr.",
       );
       setStatus("error");
     }
@@ -604,7 +604,7 @@ function SuccessState() {
       <div className="mt-4 flex items-center gap-4">
         <span className="h-px w-12 bg-gold/60" />
         <span className="font-mono text-[10px] uppercase tracking-[0.32em] text-foreground-subtle">
-          Studio MZN — Nîmes
+          Studio MIS — Nîmes
         </span>
       </div>
     </motion.div>
