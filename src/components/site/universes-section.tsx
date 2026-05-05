@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -16,6 +17,8 @@ type Universe = {
   description: string;
   /** 3-4 mots clés affichés en bas */
   highlights: string[];
+  /** Image cinématique locale utilisée en fond de card */
+  imageSrc: string;
   /** Définit le placeholder background (3 ambiances distinctes) */
   ambiance: "warm" | "cold" | "champagne";
 };
@@ -34,6 +37,7 @@ const UNIVERSES: Universe[] = [
       "Documentaires de vie",
       "Stimulation cognitive",
     ],
+    imageSrc: "/universes/institutions.webp",
     ambiance: "warm",
   },
   {
@@ -50,6 +54,7 @@ const UNIVERSES: Universe[] = [
       "Films corporate",
       "Webinaires hybrides",
     ],
+    imageSrc: "/universes/entreprises.webp",
     ambiance: "cold",
   },
   {
@@ -65,6 +70,7 @@ const UNIVERSES: Universe[] = [
       "Biographies vidéo",
       "Récits de vie",
     ],
+    imageSrc: "/universes/particuliers.webp",
     ambiance: "champagne",
   },
 ];
@@ -155,8 +161,11 @@ function UniverseCard({
         href={universe.href}
         className="group relative block aspect-[3/4] overflow-hidden rounded-2xl border border-border bg-background-elevated"
       >
-        {/* Background image / placeholder gradient */}
-        <CardBackground ambiance={universe.ambiance} />
+        {/* Background image / fallback gradient */}
+        <CardBackground
+          ambiance={universe.ambiance}
+          imageSrc={universe.imageSrc}
+        />
 
         {/* Voile assombrissant — s'allège au hover */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/10 transition-opacity duration-700 group-hover:opacity-80" />
@@ -226,7 +235,13 @@ function UniverseCard({
 
 /* ---------- Background placeholder cinématique --------- */
 
-function CardBackground({ ambiance }: { ambiance: Universe["ambiance"] }) {
+function CardBackground({
+  ambiance,
+  imageSrc,
+}: {
+  ambiance: Universe["ambiance"];
+  imageSrc: string;
+}) {
   // 3 ambiances : warm (sépia chaleureux pour la mémoire/santé),
   // cold (bleu nuit broadcast), champagne (or doux pour particuliers)
   const gradient = {
@@ -247,6 +262,14 @@ function CardBackground({ ambiance }: { ambiance: Universe["ambiance"] }) {
         aria-hidden
         className="absolute inset-0 transition-transform duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]"
         style={{ background: gradient }}
+      />
+      <Image
+        src={imageSrc}
+        alt=""
+        aria-hidden="true"
+        fill
+        sizes="(min-width: 768px) 31vw, 85vw"
+        className="absolute inset-0 object-cover opacity-90 saturate-[0.9] transition-[transform,opacity,filter] duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06] group-hover:opacity-100 group-hover:saturate-100"
       />
       {/* Grain subtil */}
       <div

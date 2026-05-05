@@ -46,7 +46,7 @@ export default function OpenGraphImage() {
               color: "#c9a961",
             }}
           >
-            Studio · {SITE.city} · {SITE.foundedYear}
+            Production · {SITE.city} · {SITE.foundedYear}
           </span>
         </div>
 
