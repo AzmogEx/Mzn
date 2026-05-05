@@ -16,7 +16,7 @@ const NAV_COLUMNS = [
     links: [
       { href: "/#manifeste", label: "Manifeste" },
       { href: "/#realisations", label: "Réalisations" },
-      { href: "/#expertise", label: "Expertise" },
+      { href: "/#confiance", label: "Confiance" },
       { href: "/contact", label: "Contact" },
     ],
   },

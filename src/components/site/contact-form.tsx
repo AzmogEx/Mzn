@@ -527,7 +527,7 @@ function StepContact({
             type="tel"
             value={form.phone}
             onChange={(e) => set("phone", e.target.value)}
-            placeholder="+33 6 XX XX XX XX"
+            placeholder="+33 6 66 46 79 31"
           />
         </Field>
       </div>

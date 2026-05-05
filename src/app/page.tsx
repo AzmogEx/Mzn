@@ -4,7 +4,6 @@ import { StatsSection } from "@/components/site/stats-section";
 import { UniversesSection } from "@/components/site/universes-section";
 import { PortfolioSection } from "@/components/site/portfolio-section";
 import { ClientsSection } from "@/components/site/clients-section";
-import { EquipmentSection } from "@/components/site/equipment-section";
 import { CtaSection } from "@/components/site/cta-section";
 
 export default function Home() {
@@ -16,7 +15,6 @@ export default function Home() {
       <UniversesSection />
       <PortfolioSection />
       <ClientsSection />
-      <EquipmentSection />
       <CtaSection />
     </main>
   );

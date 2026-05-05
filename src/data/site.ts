@@ -19,8 +19,8 @@ export const SITE = {
 
   /* ------------ Contact ------------ */
   email: "contact@mis-prod.fr",
-  phone: "+33 (0)0 00 00 00 00", // [À COMPLÉTER]
-  phoneE164: "+33000000000", // [À COMPLÉTER] format href tel:
+  phone: "+33 (6) 66 46 79 31", // [À COMPLÉTER]
+  phoneE164: "+33666467931", // [À COMPLÉTER] format href tel:
   address: {
     street: "[À COMPLÉTER]",
     postalCode: "30000",
