@@ -49,12 +49,11 @@ export const SITE = {
   hero: {
     /**
      * URL de la vidéo de fond du Hero.
-     * - Fichier local par défaut : `/hero-capture-instant.mp4`
-     *   (boucle cinématique utilisée derrière le slogan)
+     * - Fichier local par défaut : `/hero.mp4` (vidéo cinématique
+     *   placeholder, à remplacer par une vraie capture du studio)
      * - Si `undefined`, le fallback gradient animé s'affiche
      */
-    videoUrl: "/hero-capture-instant.mp4" as string | undefined,
-    posterUrl: "/hero-capture-instant.webp",
+    videoUrl: "/hero.mp4" as string | undefined,
   },
 
   /* ------------ Hébergeur (mentions légales) ------------ */

@@ -13,13 +13,7 @@ import { useRef } from "react";
  * première fenêtre de scroll, créant une dérive cinématographique
  * pendant que le texte sort plus vite.
  */
-export function HeroBackground({
-  videoSrc,
-  posterSrc,
-}: {
-  videoSrc?: string;
-  posterSrc?: string;
-}) {
+export function HeroBackground({ videoSrc }: { videoSrc?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -44,7 +38,6 @@ export function HeroBackground({
         {videoSrc ? (
           <video
             src={videoSrc}
-            poster={posterSrc}
             autoPlay
             muted
             loop

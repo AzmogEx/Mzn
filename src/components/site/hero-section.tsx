@@ -25,10 +25,7 @@ import { SITE } from "@/data/site";
 export function HeroSection() {
   return (
     <section className="relative h-screen min-h-[700px] w-full overflow-hidden">
-      <HeroBackground
-        videoSrc={SITE.hero.videoUrl}
-        posterSrc={SITE.hero.posterUrl}
-      />
+      <HeroBackground videoSrc={SITE.hero.videoUrl} />
 
       <div className="relative z-10 mx-auto flex h-full max-w-[1440px] flex-col justify-center px-6 md:px-10">
         {/* Eyebrow */}
