@@ -1,10 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Play } from "lucide-react";
 import { RevealText } from "@/components/motion/reveal-text";
+import { VideoLightbox } from "@/components/site/video-lightbox";
 import {
   PORTFOLIO_PROJECTS,
   type PortfolioProject,
@@ -36,6 +38,8 @@ function picsumUrl(seed: string, w: number, h: number) {
 export function PortfolioSection() {
   const featured = PORTFOLIO_PROJECTS.find((p) => p.featured);
   const rest = PORTFOLIO_PROJECTS.filter((p) => !p.featured).slice(0, 6);
+
+  const [active, setActive] = useState<PortfolioProject | null>(null);
 
   return (
     <section
@@ -75,12 +79,22 @@ export function PortfolioSection() {
         </div>
 
         {/* Showreel featured */}
-        {featured && <FeaturedCard project={featured} />}
+        {featured && (
+          <FeaturedCard
+            project={featured}
+            onPlay={() => setActive(featured)}
+          />
+        )}
 
         {/* Grille des projets */}
         <ul className="mt-6 grid gap-4 md:mt-8 md:grid-cols-12 md:gap-5">
           {rest.map((project, i) => (
-            <ProjectCard key={project.slug} project={project} index={i} />
+            <ProjectCard
+              key={project.slug}
+              project={project}
+              index={i}
+              onPlay={() => setActive(project)}
+            />
           ))}
         </ul>
 
@@ -105,6 +119,21 @@ export function PortfolioSection() {
           </Link>
         </motion.div>
       </div>
+
+      {/* Lightbox vidéo OU image */}
+      <VideoLightbox
+        open={active !== null}
+        onClose={() => setActive(null)}
+        videoSrc={active?.videoSrc}
+        imageSrc={
+          active && !active.videoSrc
+            ? picsumUrl(active.seed, 2400, 1600)
+            : undefined
+        }
+        alt={active ? `${active.title} — ${active.client}` : undefined}
+        title={active?.title}
+        subtitle={active?.client}
+      />
     </section>
   );
 }
@@ -113,7 +142,13 @@ export function PortfolioSection() {
 /* Showreel featured — full width, aspect 21/9 desktop                */
 /* ------------------------------------------------------------------ */
 
-function FeaturedCard({ project }: { project: PortfolioProject }) {
+function FeaturedCard({
+  project,
+  onPlay,
+}: {
+  project: PortfolioProject;
+  onPlay: () => void;
+}) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
@@ -121,9 +156,9 @@ function FeaturedCard({ project }: { project: PortfolioProject }) {
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
     >
-      <Link
-        href="#realisations"
-        aria-label={`Voir le showreel ${project.title}`}
+      <CardShell
+        onOpen={onPlay}
+        ariaLabel={`Ouvrir ${project.title}`}
         className="group relative block aspect-[16/10] w-full overflow-hidden rounded-2xl border border-border bg-background-elevated md:aspect-[21/9]"
       >
         <Image
@@ -221,8 +256,35 @@ function FeaturedCard({ project }: { project: PortfolioProject }) {
 
         {/* Liseré or au hover */}
         <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-gold/0 transition-all duration-700 group-hover:ring-gold/30" />
-      </Link>
+      </CardShell>
     </motion.div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* CardShell — bouton si vidéo dispo, lien d'ancre sinon              */
+/* ------------------------------------------------------------------ */
+
+function CardShell({
+  onOpen,
+  ariaLabel,
+  className,
+  children,
+}: {
+  onOpen: () => void;
+  ariaLabel: string;
+  className: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onOpen}
+      aria-label={ariaLabel}
+      className={cn("cursor-pointer text-left", className)}
+    >
+      {children}
+    </button>
   );
 }
 
@@ -252,9 +314,11 @@ const ASPECTS = [
 function ProjectCard({
   project,
   index,
+  onPlay,
 }: {
   project: PortfolioProject;
   index: number;
+  onPlay: () => void;
 }) {
   const colSpan = COL_SPANS[index % COL_SPANS.length];
   const aspect = ASPECTS[index % ASPECTS.length];
@@ -271,9 +335,9 @@ function ProjectCard({
       }}
       className={cn("col-span-12", colSpan)}
     >
-      <Link
-        href="#realisations"
-        aria-label={`Voir le projet ${project.title} pour ${project.client}`}
+      <CardShell
+        onOpen={onPlay}
+        ariaLabel={`Ouvrir ${project.title} pour ${project.client}`}
         className={cn(
           "group relative block w-full overflow-hidden rounded-2xl border border-border bg-background-elevated",
           aspect,
@@ -379,7 +443,7 @@ function ProjectCard({
 
         {/* Liseré or au hover */}
         <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-gold/0 transition-all duration-700 group-hover:ring-gold/30" />
-      </Link>
+      </CardShell>
     </motion.li>
   );
 }

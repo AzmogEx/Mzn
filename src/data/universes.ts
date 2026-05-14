@@ -27,6 +27,11 @@ export type UniversePortfolioItem = {
    * quand le client fournira son portfolio.
    */
   seed: string;
+  /**
+   * Chemin vers une vidéo MP4 (placée dans /public/videos/) qui sera
+   * jouée dans la lightbox au clic sur la card. Optionnel.
+   */
+  videoSrc?: string;
 };
 
 export type Universe = {

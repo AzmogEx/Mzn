@@ -39,6 +39,12 @@ export type PortfolioProject = {
   featured?: boolean;
   /** Durée affichée pour le showreel, optionnel */
   duration?: string;
+  /**
+   * Chemin de la vidéo (placée dans /public/videos/) — déclenche la lightbox
+   * au clic. Si absent, la card reste cliquable mais sans lecture.
+   * Ex: "/videos/showreel-2025.mp4"
+   */
+  videoSrc?: string;
 };
 
 export const PORTFOLIO_PROJECTS: PortfolioProject[] = [

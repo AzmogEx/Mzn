@@ -4,9 +4,10 @@ import { motion, useScroll, useTransform } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
-import { useRef, type ReactNode } from "react";
+import { useRef, useState, type ReactNode } from "react";
 import { RevealText } from "@/components/motion/reveal-text";
 import { CtaSection } from "@/components/site/cta-section";
+import { VideoLightbox } from "@/components/site/video-lightbox";
 import { cn } from "@/lib/utils";
 import type { Universe } from "@/data/universes";
 
@@ -305,6 +306,10 @@ function FormulaRow({
 /* ---------------------- 4. Portfolio masonry --------------------- */
 
 function UniversePortfolio({ universe }: { universe: Universe }) {
+  const [active, setActive] = useState<Universe["portfolio"][number] | null>(
+    null,
+  );
+
   return (
     <section className="border-t border-border bg-background-elevated py-24 md:py-32">
       <div className="mx-auto max-w-[1440px] px-6 md:px-10">
@@ -323,7 +328,12 @@ function UniversePortfolio({ universe }: { universe: Universe }) {
         {/* Masonry CSS columns — fluide, ne casse pas le ratio des items */}
         <div className="columns-1 gap-5 md:columns-2 lg:columns-3">
           {universe.portfolio.map((item, i) => (
-            <PortfolioCard key={item.title} item={item} index={i} />
+            <PortfolioCard
+              key={item.title}
+              item={item}
+              index={i}
+              onPlay={() => setActive(item)}
+            />
           ))}
         </div>
 
@@ -340,6 +350,20 @@ function UniversePortfolio({ universe }: { universe: Universe }) {
           </Link>
         </div>
       </div>
+
+      <VideoLightbox
+        open={active !== null}
+        onClose={() => setActive(null)}
+        videoSrc={active?.videoSrc}
+        imageSrc={
+          active && !active.videoSrc
+            ? picsumUrl(active.seed, 2000, 1500)
+            : undefined
+        }
+        alt={active ? `${active.title} — ${active.category}` : undefined}
+        title={active?.title}
+        subtitle={active?.category}
+      />
     </section>
   );
 }
@@ -347,9 +371,11 @@ function UniversePortfolio({ universe }: { universe: Universe }) {
 function PortfolioCard({
   item,
   index,
+  onPlay,
 }: {
   item: Universe["portfolio"][number];
   index: number;
+  onPlay: () => void;
 }) {
   const dims = {
     tall: { w: 800, h: 1066, cls: "aspect-[3/4]" },
@@ -375,9 +401,19 @@ function PortfolioCard({
         delay: (index % 3) * 0.08,
       }}
       className={cn(
-        "group relative mb-5 inline-block w-full overflow-hidden rounded-xl border border-border bg-background-elevated",
+        "group relative mb-5 inline-block w-full cursor-pointer overflow-hidden rounded-xl border border-border bg-background-elevated",
         dims.cls,
       )}
+      onClick={onPlay}
+      role="button"
+      tabIndex={0}
+      aria-label={`Ouvrir ${item.title}`}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onPlay();
+        }
+      }}
     >
       {/* Image avec parallax-zoom au hover */}
       <div className="absolute inset-0 transition-transform duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.05]">
