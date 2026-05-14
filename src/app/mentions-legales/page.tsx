@@ -34,7 +34,7 @@ export default function MentionsLegalesPage() {
         <br />
         SIRET&nbsp;: {SITE.legal.siret}
         <br />
-        Numéro de TVA intracommunautaire&nbsp;: {SITE.legal.vatNumber}
+        {SITE.legal.vatNumber}
         <br />
         Téléphone&nbsp;:{" "}
         <a href={`tel:${SITE.phoneE164}`}>{SITE.phone}</a>

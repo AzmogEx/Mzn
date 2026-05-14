@@ -31,11 +31,11 @@ export const SITE = {
   /* ------------ Légal ------------ */
   legal: {
     /** Forme juridique — ex : "SARL au capital de 10 000 €" */
-    legalForm: "[À COMPLÉTER — forme juridique + capital]",
+    legalForm: "Auto-entreprise",
     siret: "[À COMPLÉTER]",
-    vatNumber: "[À COMPLÉTER]",
+    vatNumber: "TVA non applicable, art. 293 B du CGI",
     director: "[À COMPLÉTER — Nom Prénom]",
-    directorTitle: "Gérant",
+    directorTitle: "Auto-entrepreneur",
   },
 
   /* ------------ Réseaux sociaux ------------ */
@@ -58,9 +58,9 @@ export const SITE = {
 
   /* ------------ Hébergeur (mentions légales) ------------ */
   host: {
-    name: "Vercel Inc.",
-    address: "440 N Barranca Ave #4133, Covina, CA 91723, USA",
-    website: "https://vercel.com",
+    name: "OVH SAS",
+    address: "2 rue Kellermann, 59100 Roubaix, France",
+    website: "https://www.ovh.com",
   },
 } as const;
 
