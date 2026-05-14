@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
 import { RevealText } from "@/components/motion/reveal-text";
 import { CtaSection } from "@/components/site/cta-section";
 import { cn } from "@/lib/utils";
@@ -26,12 +26,20 @@ function picsumUrl(seed: string, w: number, h: number) {
      5. CTA finale
    ================================================================== */
 
-export function UniversePageLayout({ universe }: { universe: Universe }) {
+export function UniversePageLayout({
+  universe,
+  afterFormulas,
+}: {
+  universe: Universe;
+  /** Slot optionnel inséré entre la grille de formules et le portfolio. */
+  afterFormulas?: ReactNode;
+}) {
   return (
     <main className="relative">
       <UniverseHero universe={universe} />
       <UniverseManifesto universe={universe} />
       <UniverseFormulas universe={universe} />
+      {afterFormulas}
       <UniversePortfolio universe={universe} />
       <CtaSection />
     </main>
